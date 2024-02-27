@@ -20,6 +20,10 @@
 		0B170A2A2B8E571E00F8D0B1 /* WatchToiOSConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170A292B8E571E00F8D0B1 /* WatchToiOSConnector.swift */; };
 		0B170A2C2B8E5E6900F8D0B1 /* GameColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170A2B2B8E5E6900F8D0B1 /* GameColor.swift */; };
 		0B170A2D2B8E5E6900F8D0B1 /* GameColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170A2B2B8E5E6900F8D0B1 /* GameColor.swift */; };
+		0B170A332B8E87AE00F8D0B1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170A322B8E87AE00F8D0B1 /* HomeView.swift */; };
+		0B170A352B8E89DE00F8D0B1 /* HomeAccessoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170A342B8E89DE00F8D0B1 /* HomeAccessoriesView.swift */; };
+		0B170A372B8E8B3C00F8D0B1 /* HomeKitStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170A362B8E8B3C00F8D0B1 /* HomeKitStorage.swift */; };
+		0B170A392B8E8DC300F8D0B1 /* HomesListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170A382B8E8DC300F8D0B1 /* HomesListPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,10 @@
 		0B170A272B8E564000F8D0B1 /* WatchConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnector.swift; sourceTree = "<group>"; };
 		0B170A292B8E571E00F8D0B1 /* WatchToiOSConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchToiOSConnector.swift; sourceTree = "<group>"; };
 		0B170A2B2B8E5E6900F8D0B1 /* GameColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameColor.swift; sourceTree = "<group>"; };
+		0B170A322B8E87AE00F8D0B1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		0B170A342B8E89DE00F8D0B1 /* HomeAccessoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAccessoriesView.swift; sourceTree = "<group>"; };
+		0B170A362B8E8B3C00F8D0B1 /* HomeKitStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeKitStorage.swift; sourceTree = "<group>"; };
+		0B170A382B8E8DC300F8D0B1 /* HomesListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomesListPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,10 +115,14 @@
 				0B170A232B8E53F700F8D0B1 /* LumenMemory.entitlements */,
 				0B1709FF2B8E50EC00F8D0B1 /* LumenMemoryApp.swift */,
 				0B170A012B8E50EC00F8D0B1 /* ContentView.swift */,
+				0B170A322B8E87AE00F8D0B1 /* HomeView.swift */,
+				0B170A342B8E89DE00F8D0B1 /* HomeAccessoriesView.swift */,
 				0B170A032B8E50EF00F8D0B1 /* Assets.xcassets */,
 				0B170A052B8E50EF00F8D0B1 /* Preview Content */,
 				0B170A272B8E564000F8D0B1 /* WatchConnector.swift */,
 				0B170A2B2B8E5E6900F8D0B1 /* GameColor.swift */,
+				0B170A362B8E8B3C00F8D0B1 /* HomeKitStorage.swift */,
+				0B170A382B8E8DC300F8D0B1 /* HomesListPage.swift */,
 			);
 			path = LumenMemory;
 			sourceTree = "<group>";
@@ -255,7 +267,11 @@
 			files = (
 				0B170A022B8E50EC00F8D0B1 /* ContentView.swift in Sources */,
 				0B170A282B8E564000F8D0B1 /* WatchConnector.swift in Sources */,
+				0B170A372B8E8B3C00F8D0B1 /* HomeKitStorage.swift in Sources */,
+				0B170A392B8E8DC300F8D0B1 /* HomesListPage.swift in Sources */,
 				0B170A002B8E50EC00F8D0B1 /* LumenMemoryApp.swift in Sources */,
+				0B170A332B8E87AE00F8D0B1 /* HomeView.swift in Sources */,
+				0B170A352B8E89DE00F8D0B1 /* HomeAccessoriesView.swift in Sources */,
 				0B170A2C2B8E5E6900F8D0B1 /* GameColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
