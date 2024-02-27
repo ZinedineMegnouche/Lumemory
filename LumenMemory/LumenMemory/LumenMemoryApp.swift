@@ -1,10 +1,3 @@
-//
-//  LumenMemoryApp.swift
-//  LumenMemory
-//
-//  Created by Zinedine Megnouche on 27/02/2024.
-//
-
 import SwiftUI
 
 @main
