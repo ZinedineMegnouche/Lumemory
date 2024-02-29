@@ -2,6 +2,7 @@ import SwiftUI
 import HomeKit
 
 struct HomesListPage: View {
+    
     @ObservedObject var model: HomesListPageModel
     
     @State private var selectedHome: UUID? = nil
@@ -9,7 +10,11 @@ struct HomesListPage: View {
         List{
             Section {
                 ForEach(model.homes, id: \.id) { home in
-                    Text(home.name)
+                    NavigationLink {
+                        HomeDetailView(model: HomeDetailViewModel(home: home.id, HomeKitStorage()))
+                    } label: {
+                        Text(home.name)
+                    }
                 }
             } header: {
                 Text("Mes Maisons")
