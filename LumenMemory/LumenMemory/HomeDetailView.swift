@@ -13,8 +13,8 @@ struct HomeDetailView: View {
                     model.addLightAccessory()
                 }, label: {
                     HStack{
-                        Image(systemName: "plus")
-                        Text("Ajouter une lumière")
+                        Image(systemName: "arrow.circlepath")
+                        Text("Rechercher des accessoires")
                     }
                 })
             }
@@ -42,7 +42,7 @@ struct HomeDetailView: View {
                 }
             }
         }.alert(isPresented: $model.isPresentingAlert) {
-            Alert(title: Text("Erreur"), message: Text(model.textAlert), dismissButton: .default(Text("OK")){
+            Alert(title: Text(""), message: Text(model.textAlert), dismissButton: .default(Text("OK")){
                 model.isPresentingAlert = false
             })
         }
@@ -68,7 +68,6 @@ class HomeDetailViewModel: NSObject, ObservableObject {
         self.accessoryBrowser = HMAccessoryBrowser()
         super.init()
         accessoryBrowser.delegate = self
-//        addLightAccessory()
         self.fetchData()
     }
     
@@ -87,7 +86,6 @@ class HomeDetailViewModel: NSObject, ObservableObject {
     }
     
     func addLightAccessory() {
-        print("🍆")
         accessoryBrowser.startSearchingForNewAccessories()
     }
 }
@@ -104,21 +102,20 @@ extension HomeDetailViewModel: HMAccessoryBrowserDelegate {
     }
     
     func addAccesoryToHome(accessory: HMAccessory){
-        let isLightBulbHue = accessory.services.contains { $0.serviceType == HMServiceTypeLightbulb && $0.characteristics.contains {
-            $0.characteristicType == HMCharacteristicTypeHue
-        }}
-        if isLightBulbHue {
-            homeKitStorage.homes.first{ $0.uniqueIdentifier == home}?.addAccessory(accessory, completionHandler: { err in
-                if let err {
-                    print("impossible d'ajouter l'accessoire \(err)")
-                } else {
-                    self.textAlert = "L'accesoire \(accessory.name) à été ajouté avec succes"
-                    self.isPresentingAlert = true
-                    self.fetchData()}
-            })
-        } else {
-            self.textAlert = "L'accessoire n'est pas une ampoule avec couleurs"
-            isPresentingAlert = true
-        }
+        homeKitStorage.homes.first{ $0.uniqueIdentifier == home}?.addAccessory(accessory, completionHandler: { err in
+            if let err {
+                self.textAlert = "impossible d'ajouter l'accessoire \(err)"
+            } else {
+                let isLightBulbHue = accessory.services.contains { $0.serviceType == HMServiceTypeLightbulb && $0.characteristics.contains {
+                    $0.characteristicType == HMCharacteristicTypeHue
+                }}
+                self.textAlert = "L'accesoire \(accessory.name) à été ajouté avec succes au domicile"
+                if !isLightBulbHue {
+                    self.textAlert += " mais n'est pas compatible (l'accessoire n'est pas une ampoule avec couleurs)"
+                }
+                self.fetchData()
+            }
+            self.isPresentingAlert = true
+        })
     }
 }
