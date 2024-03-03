@@ -22,8 +22,8 @@ class HomeKitStorage: NSObject, ObservableObject, HMHomeManagerDelegate {
         self.homes = self.manager.homes
     }
     
-    func addHome(){
-        manager.addHome(withName: "NewHome\(UUID())") { [weak self] home, err in
+    func addHome(homeName: String){
+        manager.addHome(withName: homeName) { [weak self] home, err in
             guard let self = self else { return }
             self.homeManagerDidUpdateHomes(self.manager)
         }

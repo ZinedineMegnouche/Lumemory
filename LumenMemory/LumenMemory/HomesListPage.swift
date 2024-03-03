@@ -4,7 +4,7 @@ import HomeKit
 struct HomesListPage: View {
     
     @ObservedObject var model: HomesListPageModel
-    
+    @State private var homeName: String = ""
     @State private var selectedHome: UUID? = nil
     var body: some View {
         List{
@@ -17,14 +17,30 @@ struct HomesListPage: View {
                     }
                 }
             } header: {
-                Text("Mes Maisons")
-                Button{
-                    model.addHome()
-                } label: {
-                    Text("Add Home")
+                HStack{
+                    Text("Mes Maisons")
+                    Spacer()
+                    Button{
+                        model.handleAddhome()
+                    } label: {
+                        HStack{
+                            Image(systemName: "homekit")
+                            Text("Add Home")
+                        }
+                    }
                 }
             }
 
+        }.alert("Entrer le nom de la maison", isPresented: $model.isPresentingAlert) {
+            TextField("Entrer le nom de la maison", text: $homeName)
+            HStack {
+                Button("Annuler", action: {
+                    model.isPresentingAlert = false
+                })
+                Button("OK", action: {
+                    model.addHome(homeName: homeName)
+                })
+            }
         }
     }
 }
@@ -35,6 +51,7 @@ struct HomesListPage: View {
 class HomesListPageModel: ObservableObject {
     
     @Published var homes: [HomeListItem] = []
+    @Published var isPresentingAlert: Bool = false
     private let homeKitStorage: HomeKitStorage
     
     init(_ homeKitStorage: HomeKitStorage) {
@@ -42,8 +59,16 @@ class HomesListPageModel: ObservableObject {
         manageHomes()
     }
     
-    func addHome(){
-        homeKitStorage.addHome()
+    func handleAddhome(){
+        isPresentingAlert = true
+    }
+    
+    func addHome(homeName: String) -> Void {
+        if homeName.isNameValid(){
+            homeKitStorage.addHome(homeName: homeName)
+            
+        }
+        isPresentingAlert = false
     }
     
     func manageHomes(){

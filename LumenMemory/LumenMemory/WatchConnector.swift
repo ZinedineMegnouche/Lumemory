@@ -16,7 +16,9 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print(activationState.rawValue)
-        print(error)
+        if let error = error {
+            print(error)
+        }
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {
