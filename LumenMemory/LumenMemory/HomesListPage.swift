@@ -11,7 +11,7 @@ struct HomesListPage: View {
             Section {
                 ForEach(model.homes, id: \.id) { home in
                     NavigationLink {
-                        HomeDetailView(model: HomeDetailViewModel(home: home.id, HomeKitStorage()))
+                        HomeDetailView(model: HomeDetailViewModel(home: home, HomeKitStorage()))
                     } label: {
                         Text(home.name)
                     }

@@ -1,42 +1,61 @@
 import SwiftUI
+import Combine
 
-struct ContentView: View {
+struct GameWatchView: View {
     
-    @StateObject var watchConnectivity = WatchToiOSConnector()
+    @ObservedObject var model: GameWatchViewModel
     
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    watchConnectivity.sendColor(.red)
+                    model.watchToiOSConnector.sendColor(.red)
                 } label: {
                     Rectangle()
                         .fill(Color.red)
-                }.background(Color.red)
+                }.buttonStyle(GameButtonStyle())
                 Button {
-                    watchConnectivity.sendColor(.green)
+                    model.watchToiOSConnector.sendColor(.green)
                 } label: {
                     Color.green
-                }.background(Color.green)
+                }.buttonStyle(GameButtonStyle())
             }
             HStack{
                 Button {
-                    watchConnectivity.sendColor(.blue)
+                    model.watchToiOSConnector.sendColor(.blue)
                 } label: {
                     Rectangle()
                         .fill(Color.blue)
-                }.background(Color.blue)
+                }.buttonStyle(GameButtonStyle())
                 Button {
-                    watchConnectivity.sendColor(.yellow)
+                    model.watchToiOSConnector.sendColor(.yellow)
                 } label: {
                     Color.yellow
-                }.background(Color.yellow)
-                
+                }.buttonStyle(GameButtonStyle())
             }
+        }.disabled(!model.playable).overlay {
+            !model.playable ? Color.black.opacity(0.8) : nil
         }.ignoresSafeArea()
+            
     }
 }
 
 #Preview {
-    ContentView()
+    GameWatchView(model: GameWatchViewModel())
+}
+
+class GameWatchViewModel: ObservableObject {
+    
+    @Published var playable = false
+    @ObservedObject var watchToiOSConnector = WatchToiOSConnector()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        watchToiOSConnector.$canPlay
+            .compactMap { $0 }
+            .sink { canPlay in
+                self.playable = canPlay
+            }.store(in: &cancellables)
+    }
 }

@@ -21,7 +21,13 @@ struct HomeDetailView: View {
             List {
                 Section {
                     ForEach(model.lightAccessories, id: \.uniqueIdentifier) { accessory in
-                        Text(accessory.name)
+                        
+                        NavigationLink {
+                            GameMenuView(model: GameMenuViewModel(home: model.home, accesory: accessory))
+                        } label: {
+                            Text(accessory.name)
+                        }
+
                     }
                 } header: {
                     Text("Lumières")
@@ -51,17 +57,18 @@ struct HomeDetailView: View {
 
 class HomeDetailViewModel: NSObject, ObservableObject {
     
-    @Published var home: UUID
+    @Published var home: HomeListItem
     @Published var lightAccessories: [HMAccessory] = []
     @Published var newAccessories: [HMAccessory] = []
     @Published var isPresentingAlert: Bool = false
     @Published var textAlert: String = ""
+    @Published var homeName: String = ""
     
     private var accessoryBrowser: HMAccessoryBrowser!
     
     private let homeKitStorage: HomeKitStorage
     
-    init(home: UUID,_ homeKitStorage: HomeKitStorage) {
+    init(home: HomeListItem,_ homeKitStorage: HomeKitStorage) {
         print("🔥\(home)")
         self.home = home
         self.homeKitStorage = homeKitStorage
@@ -74,9 +81,10 @@ class HomeDetailViewModel: NSObject, ObservableObject {
     func fetchData() {
         homeKitStorage.$homes
             .map { homes in
-                homes.first { home in home.uniqueIdentifier == self.home}?.accessories.filter { acc in
+                homes.first { home in home.uniqueIdentifier == self.home.id}?.accessories.filter { acc in
                     let isLightbulb = acc.services.contains { service in
-                        service.serviceType == HMServiceTypeLightbulb && service.characteristics.contains {
+                        service.serviceType == HMServiceTypeLightbulb 
+                        && service.characteristics.contains {
                             $0.characteristicType == HMCharacteristicTypeHue
                         }
                     }
@@ -102,7 +110,7 @@ extension HomeDetailViewModel: HMAccessoryBrowserDelegate {
     }
     
     func addAccesoryToHome(accessory: HMAccessory){
-        homeKitStorage.homes.first{ $0.uniqueIdentifier == home}?.addAccessory(accessory, completionHandler: { err in
+        homeKitStorage.homes.first{ $0.uniqueIdentifier == home.id}?.addAccessory(accessory, completionHandler: { err in
             if let err {
                 self.textAlert = "impossible d'ajouter l'accessoire \(err)"
             } else {
