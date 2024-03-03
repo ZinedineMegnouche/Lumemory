@@ -16,7 +16,9 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print(activationState.rawValue)
-        print(error)
+        if let error = error {
+            print(error)
+        }
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {
@@ -26,9 +28,11 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        print(message)
-        if let color = message["color"] as? Int {
-            self.receivedColor = GameColorMapper.map(color: color)
+        DispatchQueue.main.async {
+            if let color = message["color"] as? Int {
+                self.receivedColor = GameColorMapper.map(color: color)
+            }
         }
     }
+
 }
