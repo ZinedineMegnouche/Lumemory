@@ -196,12 +196,13 @@ class GameViewModel: ObservableObject {
             }
     }
     
-    func didTapColor(color: GameColor){
+    func didTapColor(color: GameColor) {
         print("👌tap :\(color)")
         checkColor(color: color)
     }
     
-    func checkColor(color: GameColor){
+    func checkColor(color: GameColor) {
+        print("showed Color: ",showedColors)
         if indexColor < showedColors.count {
             if self.showedColors[safe: indexColor] == color {
                 if indexColor + 1 == showedColors.count {
@@ -290,7 +291,7 @@ class GameViewModel: ObservableObject {
         DispatchQueue.global().async {
             self.isShowingColor = true
             self.watchConnector.sendIsPlaying(canPlay: false)
-            for i in 0..<self.round {
+            for i in 0..<self.round*self.gameDifficulty.rawValue {
                 if self.showedColors[safe: i] == nil {
                     self.showedColors.append(GameColor.random())
                 }
@@ -302,7 +303,7 @@ class GameViewModel: ObservableObject {
             }
             DispatchQueue.main.async {
                 self.isShowingColor = false
-                print(self.showedColors)
+                print("🔥\(self.showedColors)")
                 self.turnOnLight()
                 self.watchConnector.sendIsPlaying(canPlay: true)
             }
@@ -322,7 +323,7 @@ class GameViewModel: ObservableObject {
 }
 
 enum GameDifficulty: Int {
-    case easy = 0
-    case medium = 1
-    case hard = 2
+    case easy = 1
+    case medium = 2
+    case hard = 3
 }
