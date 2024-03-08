@@ -6,42 +6,53 @@ struct HomesListPage: View {
     @ObservedObject var model: HomesListPageModel
     @State private var homeName: String = ""
     @State private var selectedHome: UUID? = nil
+    
     var body: some View {
-        List{
-            Section {
-                ForEach(model.homes, id: \.id) { home in
-                    NavigationLink {
-                        HomeDetailView(model: HomeDetailViewModel(home: home, HomeKitStorage()))
-                    } label: {
-                        Text(home.name)
-                    }
-                }
-            } header: {
-                HStack{
-                    Text("Mes Maisons")
-                    Spacer()
-                    Button{
-                        model.handleAddhome()
-                    } label: {
-                        HStack{
-                            Image(systemName: "homekit")
-                            Text("Add Home")
+        VStack(alignment: .leading){
+            HStack{
+                Spacer()
+                Button{
+                    model.handleAddhome()
+                } label: {
+                    Image(systemName: "house")
+                    Text("Ajouter une maison")
+                }.foregroundStyle(.white)
+            }.padding()
+            Text("Selectionner une Maison")
+                .font(.title)
+                .foregroundStyle(.white)
+                .bold()
+                .padding()
+            List{
+                Section {
+                    ForEach(model.homes, id: \.id) { home in
+                        NavigationLink {
+                            HomeDetailView(model: HomeDetailViewModel(home: home, 
+                                                                      HomeKitStorage()))
+                        } label: {
+                            Text(home.name)
                         }
                     }
                 }
             }
-
-        }.alert("Entrer le nom de la maison", isPresented: $model.isPresentingAlert) {
-            TextField("Entrer le nom de la maison", text: $homeName)
-            HStack {
-                Button("Annuler", action: {
-                    model.isPresentingAlert = false
-                })
-                Button("OK", action: {
-                    model.addHome(homeName: homeName)
-                })
+        }.listStyle(PlainListStyle())
+            .background(Image("bg")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea())
+            .alert("Entrer le nom de la maison", 
+                   isPresented: $model.isPresentingAlert) {
+                TextField("Entrer le nom de la maison", 
+                          text: $homeName)
+                HStack {
+                    Button("Annuler", action: {
+                        model.isPresentingAlert = false
+                    })
+                    Button("OK", action: {
+                        model.addHome(homeName: homeName)
+                    })
+                }
             }
-        }
     }
 }
 
@@ -66,7 +77,6 @@ class HomesListPageModel: ObservableObject {
     func addHome(homeName: String) -> Void {
         if homeName.isNameValid(){
             homeKitStorage.addHome(homeName: homeName)
-            
         }
         isPresentingAlert = false
     }

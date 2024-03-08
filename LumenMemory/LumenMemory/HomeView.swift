@@ -3,26 +3,56 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                Button {
-                    print("Button 1")
-                } label: {
-                    Text("Ajouter un accessoire")
-                }.padding()
+            VStack {
+                Text("Lumen")
+                    .font(.largeTitle)
+                    .foregroundStyle(.white)
+                .bold()
+                
+                Text("Memory")
+                    .font(.largeTitle)
+                    .foregroundStyle(.white)
+                .bold()
+                
             }
-            Text("LumenMemory").font(.title)
-            Spacer()
+            .padding(.top, 200)
             VStack{
-                NavigationLink("Jouer", destination: HomesListPage(model: HomesListPageModel(HomeKitStorage())))
-            }
+                Spacer()
+                NavigationLink {
+                    HomesListPage(model: HomesListPageModel(HomeKitStorage()))
+                } label: {
+                   RoundedText(text: "JOUER !")
+                }
+                Spacer()
+            }.padding()
             Spacer()
-        }
+        }.background(Image("bg")
+            .resizable()
+            .scaledToFill())
+        .ignoresSafeArea()
     }
+    
 }
 
 #Preview {
     NavigationStack{
         HomeView()
+    }
+}
+
+struct RoundedText: View {
+    
+    var text: String
+    
+    var body: some View {
+        Text(text)
+            .bold()
+            .font(.title)
+            .padding()
+//            .modifier(CustomTextStyle())
+            .tint(.white).overlay {
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(lineWidth: 6).tint(.white)
+            }
     }
 }

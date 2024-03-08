@@ -3,4 +3,149 @@
    uuid = "A9D5BCA9-9F23-4223-928D-3D34FDD960A2"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E742BD06-B03A-4722-9D8B-E8FF18DA0265"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LumenMemory/GameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "checkColor(color:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7BDD20CD-D88A-4CC9-842C-24081782FA76"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LumenMemory/GameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
+            landmarkName = "startGame()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0FD3AE04-5309-4D34-8014-FBFED59A449C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LumenMemory/GameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "beginRound(showingColors:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ED1CB8A7-E954-4300-A638-4A4C006F30F8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LumenMemory/GameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "beginRound(showingColors:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "47F9D5F9-C8CE-40DB-8D79-ACA01D2DE842"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LumenMemory/GameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "beginRound(showingColors:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "47F9D5F9-C8CE-40DB-8D79-ACA01D2DE842 - bd4603c706561e0b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LumenMemory.GameViewModel.beginRound(showingColors: Swift.Array&lt;LumenMemory.GameColor&gt;) -&gt; ()"
+                  moduleName = "LumenMemory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zinedinemegnouche/Documents/Scolarite%CC%81/ESGI/BAC%20+5/Projets/watchOs/Lumemory/LumenMemory/LumenMemory/GameView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "317"
+                  endingLineNumber = "317"
+                  offsetFromSymbolStart = "596">
+               </Location>
+               <Location
+                  uuid = "47F9D5F9-C8CE-40DB-8D79-ACA01D2DE842 - bd4603c706561e0b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LumenMemory.GameViewModel.beginRound(showingColors: Swift.Array&lt;LumenMemory.GameColor&gt;) -&gt; ()"
+                  moduleName = "LumenMemory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zinedinemegnouche/Documents/Scolarite%CC%81/ESGI/BAC%20+5/Projets/watchOs/Lumemory/LumenMemory/LumenMemory/GameView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "317"
+                  endingLineNumber = "317"
+                  offsetFromSymbolStart = "492">
+               </Location>
+               <Location
+                  uuid = "47F9D5F9-C8CE-40DB-8D79-ACA01D2DE842 - bd4603c706561e0b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LumenMemory.GameViewModel.beginRound(showingColors: Swift.Array&lt;LumenMemory.GameColor&gt;) -&gt; ()"
+                  moduleName = "LumenMemory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zinedinemegnouche/Documents/Scolarite%CC%81/ESGI/BAC%20+5/Projets/watchOs/Lumemory/LumenMemory/LumenMemory/GameView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "317"
+                  endingLineNumber = "317"
+                  offsetFromSymbolStart = "576">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "358F906C-3C27-428E-96D8-47A0DAFD7571"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LumenMemory/GameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "bind()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -6,51 +6,67 @@ struct GameMenuView: View {
     @ObservedObject var model: GameMenuViewModel
     
     var body: some View {
-        VStack{
-            Text("Choisissez un niveau")
-                .padding(30)
-                .font(.title)
-            VStack(spacing: 20) {
-                HStack(spacing: 10) {
-                    Image(systemName: "lightbulb")
-                    Text(model.accesory.name)
-                        .bold()
-                    Spacer()
-                    
-                }
+        VStack {
+            HStack {
+                Text("Partie")
+                    .font(.title)
+                    .foregroundStyle(.white)
+                    .bold()
+                    .padding(.bottom, 40)
+                Spacer()
+            }
+            HStack(spacing: 20) {
                 HStack(spacing: 10) {
                     Image(systemName: "homekit")
+                        .font(.system(size: 30))
+                        .bold()
+                        .foregroundStyle(.white)
                     Text(model.home.name)
                         .bold()
+                        .font(.title3)
                     Spacer()
                 }
-            }.frame(maxWidth: .infinity)
+                HStack(spacing: 10) {
+                    Image(systemName: "lightbulb.max.fill")
+                        .font(.system(size: 30))
+                        .foregroundStyle(.yellow)
+                    Text(model.accesory.name)
+                        .bold()
+                        .font(.title3)
+                    Spacer()
+                }
+            }.foregroundStyle(.white)
             Spacer()
-            VStack(spacing: 50){
+            VStack(spacing: 50) {
                 NavigationLink {
-                    GameView(model: GameViewModel(home: model.home, accesory: model.accesory, difficulty: .easy, homeKitStorage: HomeKitStorage()))
+                    NavigationLazyView(GameView(model: GameViewModel(home: model.home, accesory: model.accesory, difficulty: .easy, homeKitStorage: HomeKitStorage())))
                 } label: {
-                    Text("Facile")
-                    NavigationLink {
-                        GameView(model: GameViewModel(home: model.home, accesory: model.accesory, difficulty: .medium, homeKitStorage: HomeKitStorage()))
-                    } label: {
-                        Text("Moyen")
-                    }
-                    NavigationLink {
-                        GameView(model: GameViewModel(home: model.home, accesory: model.accesory, difficulty: .hard, homeKitStorage: HomeKitStorage()))
-                    } label: {
-                        Text("Difficile")
-                    }
+                    RoundedText(text: "Facile")
+                }
+                NavigationLink {
+                    NavigationLazyView(GameView(model: GameViewModel(home: model.home, accesory: model.accesory, difficulty: .medium, homeKitStorage: HomeKitStorage())))
+                } label: {
+                    RoundedText(text: "Moyen")
+                }
+                NavigationLink {
+                    NavigationLazyView(GameView(model: GameViewModel(home: model.home, accesory: model.accesory, difficulty: .hard, homeKitStorage: HomeKitStorage())))
+                } label: {
+                    RoundedText(text: "Difficile")
                 }.padding(.bottom, 100)
             }
             Spacer()
-        }.padding()
+        }
+        .padding()
+        .background(Image("bg")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea())
     }
 }
 
-//#Preview {
-//    GameMenuView()
-//}
+#Preview {
+    GameMenuView(model: GameMenuViewModel(home: HomeListItem(id: UUID(), name: "home"), accesory: HMAccessory()))
+}
 
 
 class GameMenuViewModel: ObservableObject {
@@ -61,8 +77,17 @@ class GameMenuViewModel: ObservableObject {
         self.home = home
         self.accesory = accesory
     }
-    
-    func handleStartGame(){
-        
+}
+
+struct NavigationLazyView<Content: View>: View {
+
+    let build: () -> Content
+
+    init(_ build: @autoclosure @escaping () -> Content) {
+        self.build = build
+    }
+
+    var body: Content {
+        build()
     }
 }

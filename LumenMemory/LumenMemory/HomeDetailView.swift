@@ -6,7 +6,7 @@ struct HomeDetailView: View {
     @ObservedObject var model: HomeDetailViewModel
     
     var body: some View {
-        VStack{
+        VStack(alignment: .leading){
             HStack{
                 Spacer()
                 Button(action: {
@@ -16,43 +16,63 @@ struct HomeDetailView: View {
                         Image(systemName: "arrow.circlepath")
                         Text("Rechercher des accessoires")
                     }
-                })
+                }).foregroundStyle(.white)
             }
+            Text("Selectionner une ampoule")
+                .font(.title)
+                .foregroundStyle(.white)
+                .bold()
+                .padding()
+            Text("Lumières")
+                .font(.title2)
+                .foregroundStyle(.white)
+                .bold()
+                .padding()
             List {
                 Section {
                     ForEach(model.lightAccessories, id: \.uniqueIdentifier) { accessory in
-                        
                         NavigationLink {
                             GameMenuView(model: GameMenuViewModel(home: model.home, accesory: accessory))
                         } label: {
                             Text(accessory.name)
                         }
-
                     }
-                } header: {
-                    Text("Lumières")
                 }
-            }
-            List {
-                Section {
-                    ForEach(model.newAccessories, id: \.uniqueIdentifier) { accessory in
-                        Button{
-                            model.addAccesoryToHome(accessory: accessory)
-                        } label: {
-                            Text(accessory.name)
-                            
-                        }
-                    }
-                } header: {
+            }.listStyle(PlainListStyle())
+            if model.newAccessories.count > 0 {
+                VStack(alignment: .leading) {
                     Text("Nouveau Accesoire")
+                        .font(.title2)
+                        .foregroundStyle(.white)
+                        .bold()
+                        .padding()
+                    List {
+                        Section {
+                            ForEach(model.newAccessories, id: \.uniqueIdentifier) { accessory in
+                                Button{
+                                    model.addAccesoryToHome(accessory: accessory)
+                                } label: {
+                                    Text(accessory.name)
+                                }
+                            }
+                        }
+                    }.listStyle(PlainListStyle())
                 }
             }
-        }.alert(isPresented: $model.isPresentingAlert) {
+        }.background(Image("bg")
+            .resizable()
+            .scaledToFill()
+            .ignoresSafeArea())
+        .alert(isPresented: $model.isPresentingAlert) {
             Alert(title: Text(""), message: Text(model.textAlert), dismissButton: .default(Text("OK")){
                 model.isPresentingAlert = false
             })
         }
     }
+}
+
+#Preview {
+    HomeDetailView(model: HomeDetailViewModel(home: HomeListItem(id: UUID(), name: "Test"),HomeKitStorage()))
 }
 
 class HomeDetailViewModel: NSObject, ObservableObject {

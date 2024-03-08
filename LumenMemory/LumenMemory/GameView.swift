@@ -18,7 +18,7 @@ struct GameView: View {
                     Button{
                         model.startGame()
                     }label: {
-                        Text("Start")
+                        RoundedText(text: "Start")
                     }
                 }
             }
@@ -71,7 +71,10 @@ struct GameView: View {
             }
         }
         .padding()
-        .background(Color.black)
+        .background(Image("bg")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea())
     }
 }
 
@@ -106,15 +109,19 @@ class GameViewModel: ObservableObject {
         self.accesory = accesory
         self.gameDifficulty = difficulty
         self.homeKitStorage = homeKitStorage
+        bind()
+    }
+    
+    func bind(){
         watchConnector.$receivedColor
             .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
             .sink { color in
                 self.didTapColor(color: color)
             }.store(in: &cancellables)
     }
     
     func turnOnLight(){
-        
         homeKitStorage.homes
             .first{$0.uniqueIdentifier == home.id}?
             .accessories
@@ -287,27 +294,46 @@ class GameViewModel: ObservableObject {
         }
     }
     
-    func continueGame() {
-        DispatchQueue.global().async {
-            self.isShowingColor = true
-            self.watchConnector.sendIsPlaying(canPlay: false)
-            for i in 0..<self.round*self.gameDifficulty.rawValue {
-                if self.showedColors[safe: i] == nil {
-                    self.showedColors.append(GameColor.random())
-                }
-                DispatchQueue.main.async {
-                    self.decreaseBrightness()
-                    self.changeColor(color: self.showedColors[i])
-                }
-                Thread.sleep(forTimeInterval: 5)
-            }
-            DispatchQueue.main.async {
-                self.isShowingColor = false
-                print("🔥\(self.showedColors)")
-                self.turnOnLight()
-                self.watchConnector.sendIsPlaying(canPlay: true)
+    func initRound() {
+        print("colorcount: \(self.round*self.gameDifficulty.rawValue)")
+        for i in 0..<self.round*self.gameDifficulty.rawValue {
+            if self.showedColors[safe: i] == nil {
+                self.showedColors.append(GameColor.random())
+                print("newcolor added\(self.showedColors)")
             }
         }
+    }
+    
+    func endRound() {
+        self.isShowingColor = false
+        print("🔥\(self.showedColors)")
+        self.turnOnLight()
+        self.watchConnector.sendIsPlaying(canPlay: true)
+    }
+    
+    func beginRound(showingColors: [GameColor]) {
+        guard !showingColors.isEmpty else { return }
+        var gameColor = showingColors
+        if let currentColor = gameColor[safe: 0]{
+            self.decreaseBrightness()
+            self.changeColor(color: currentColor)
+            gameColor.removeFirst()
+        }
+        self.watchConnector.sendIsPlaying(canPlay: false)
+        DispatchQueue.main.asyncAfter(deadline: .now()+(gameColor.isEmpty ? 5 : 5)){
+            if !gameColor.isEmpty {
+                print("continue with\(gameColor)")
+                self.beginRound(showingColors: gameColor)
+            } else {
+                self.endRound()
+            }
+        }
+    }
+    
+    func continueGame() {
+        isShowingColor = true
+        initRound()
+        beginRound(showingColors: self.showedColors)
     }
     
     func startGame() {
