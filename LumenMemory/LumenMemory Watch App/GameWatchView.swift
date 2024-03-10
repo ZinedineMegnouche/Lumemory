@@ -40,9 +40,13 @@ struct GameWatchView: View {
                 !model.playable ? Color.black.opacity(0.8) : nil
             }
             .ignoresSafeArea()
-
-            Text("Deuxième Vue")
-                .padding()
+            if model.playState == .gameOver {
+                Button{
+                    model.watchToiOSConnector.sendRestart()
+                }label: {
+                    Text("Rejouer")
+                }
+            }
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
     }

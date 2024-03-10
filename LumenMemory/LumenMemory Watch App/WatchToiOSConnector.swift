@@ -3,7 +3,7 @@ import WatchConnectivity
 
 class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
     
-    @Published var canPlay: Bool?
+    @Published var playState: PlayState?
     
     var session: WCSession
     
@@ -28,9 +28,17 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         DispatchQueue.main.async {
-            if let canPlay = message["canPlay"] as? Bool {
-                self.canPlay = canPlay
+            if let playState = message["playState"] as? Int {
+                self.playState = PlayStateMapper.map(state: playState)
             }
+        }
+    }
+    
+    func sendRestart(){
+        if session.isReachable {
+            session.sendMessage(["restart": true], replyHandler: nil, errorHandler: nil)
+        } else {
+            print("not reachable")
         }
     }
 }

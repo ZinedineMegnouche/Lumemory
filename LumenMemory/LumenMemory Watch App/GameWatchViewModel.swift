@@ -4,16 +4,22 @@ import Combine
 
 class GameWatchViewModel: ObservableObject {
     
-    @Published var playable = false
+    @Published var playState: PlayState?
     @ObservedObject var watchToiOSConnector = WatchToiOSConnector()
+    
+    var playable: Bool {
+        playState == .canPlay
+    }
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        watchToiOSConnector.$canPlay
+        watchToiOSConnector.$playState
             .compactMap { $0 }
-            .sink { canPlay in
-                self.playable = canPlay
+            .sink { playState in
+                self.playState = playState
             }.store(in: &cancellables)
     }
+    
+    
 }

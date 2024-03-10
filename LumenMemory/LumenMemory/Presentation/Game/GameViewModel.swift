@@ -36,6 +36,13 @@ class GameViewModel: ObservableObject {
             .sink { color in
                 self.didTapColor(color: color)
             }.store(in: &cancellables)
+        
+        watchConnector.$restart
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.startGame()
+            }.store(in: &cancellables)
     }
     
     func didTapColor(color: GameColor) {
@@ -68,7 +75,7 @@ class GameViewModel: ObservableObject {
             self.indexColor = 0
             self.round = 1
             self.isGameFinished = true
-            self.watchConnector.sendIsPlaying(canPlay: false)
+            self.watchConnector.sendPlaystate(playState: .gameOver)
         }
     }
     
@@ -92,7 +99,7 @@ class GameViewModel: ObservableObject {
     func endRound() {
         self.isShowingColor = false
         self.turnOnLight()
-        self.watchConnector.sendIsPlaying(canPlay: true)
+        self.watchConnector.sendPlaystate(playState: .canPlay)
     }
     
     func beginRound(showingColors: [GameColor]) {
@@ -103,7 +110,7 @@ class GameViewModel: ObservableObject {
             self.changeColor(color: currentColor)
             gameColor.removeFirst()
         }
-        self.watchConnector.sendIsPlaying(canPlay: false)
+        self.watchConnector.sendPlaystate(playState: .cannotPlay)
         DispatchQueue.main.asyncAfter(deadline: .now()+(gameColor.isEmpty ? 5 : 5)){
             if !gameColor.isEmpty {
                 self.beginRound(showingColors: gameColor)
