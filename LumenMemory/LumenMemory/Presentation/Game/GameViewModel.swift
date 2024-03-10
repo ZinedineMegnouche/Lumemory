@@ -17,7 +17,11 @@ class GameViewModel: ObservableObject {
     @Published var isGameFinished = false
     
     var score: Int {
-        (self.round-1)*10
+        return (round-1)*10*gameDifficulty.rawValue
+    }
+    
+    var bestScore: Int {
+        return UserDefaults.standard.integer(forKey: "Best\(self.gameDifficulty.rawValue)")
     }
     
     private var cancellables = Set<AnyCancellable>()
@@ -77,8 +81,13 @@ class GameViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.turnOnLight()
             self.indexColor = 0
+            let bestScore = UserDefaults.standard.integer(forKey: "Best\(self.gameDifficulty.rawValue)")
+            if self.score > bestScore {
+                UserDefaults.standard.set(self.score, forKey: "Best\(self.gameDifficulty.rawValue)")
+            }
             self.watchConnector.sendPlaystate(playState: .gameOver)
             self.watchConnector.sendScore(self.score)
+            self.watchConnector.sendBestScore(self.bestScore)
             self.isGameFinished = true
         }
     }

@@ -5,6 +5,8 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     @Published var playState: PlayState?
     @Published var score: Int?
+    @Published var bestScore: Int?
+    
     var session: WCSession
     
     
@@ -33,6 +35,10 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
             }
             if let score = message["score"] as? Int {
                 self.score = score
+            }
+            
+            if let best = message["best"] as? Int {
+                self.bestScore = best
             }
         }
     }

@@ -46,6 +46,7 @@ struct GameWatchView: View {
                             .bold()
                             .foregroundStyle(.white)
                         Text("Score: \(model.score)")
+                        Text("Best Score: \(model.bestScore)")
                     }
                 }
             }

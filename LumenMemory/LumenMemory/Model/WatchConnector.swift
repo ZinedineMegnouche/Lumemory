@@ -55,5 +55,13 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
             print("not reachable")
         }
     }
+    
+    func sendBestScore(_ score: Int){
+        if session.isReachable {
+            session.sendMessage(["best": score], replyHandler: nil, errorHandler: nil)
+        } else {
+            print("not reachable")
+        }
+    }
 
 }
