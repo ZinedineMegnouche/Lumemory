@@ -30,6 +30,10 @@
 		0B51F5672B94C79C0010AFD8 /* GameMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51F5662B94C79C0010AFD8 /* GameMenuView.swift */; };
 		0B51F5692B94E1D30010AFD8 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51F5682B94E1D30010AFD8 /* GameView.swift */; };
 		0B51F5B62B97A5890010AFD8 /* Collection+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51F5B52B97A5890010AFD8 /* Collection+Safe.swift */; };
+		0B85E4CC2B9DFE2D00133166 /* Audiowide-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B85E4CB2B9DFE2D00133166 /* Audiowide-Regular.ttf */; };
+		0B85E4CD2B9DFE2D00133166 /* Audiowide-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B85E4CB2B9DFE2D00133166 /* Audiowide-Regular.ttf */; };
+		0B85E4CF2B9E00CA00133166 /* View+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B85E4CE2B9E00CA00133166 /* View+Font.swift */; };
+		0B85E4D02B9E00CA00133166 /* View+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B85E4CE2B9E00CA00133166 /* View+Font.swift */; };
 		0BCB50ED2B9CDBA300B21E2D /* RoundedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB50EC2B9CDBA300B21E2D /* RoundedText.swift */; };
 		0BCB50F02B9CDCB200B21E2D /* View+BackGround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB50EF2B9CDCB200B21E2D /* View+BackGround.swift */; };
 		0BCB50F22B9CE04A00B21E2D /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB50F12B9CE04A00B21E2D /* GameDifficulty.swift */; };
@@ -93,6 +97,10 @@
 		0B51F5662B94C79C0010AFD8 /* GameMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuView.swift; sourceTree = "<group>"; };
 		0B51F5682B94E1D30010AFD8 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		0B51F5B52B97A5890010AFD8 /* Collection+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Safe.swift"; sourceTree = "<group>"; };
+		0B85E4C62B9DFB1B00133166 /* LumenMemory-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LumenMemory-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		0B85E4C72B9DFB3400133166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0B85E4CB2B9DFE2D00133166 /* Audiowide-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Audiowide-Regular.ttf"; sourceTree = "<group>"; };
+		0B85E4CE2B9E00CA00133166 /* View+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Font.swift"; sourceTree = "<group>"; };
 		0BCB50EC2B9CDBA300B21E2D /* RoundedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedText.swift; sourceTree = "<group>"; };
 		0BCB50EF2B9CDCB200B21E2D /* View+BackGround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+BackGround.swift"; sourceTree = "<group>"; };
 		0BCB50F12B9CE04A00B21E2D /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
@@ -147,6 +155,8 @@
 		0B1709FE2B8E50EC00F8D0B1 /* LumenMemory */ = {
 			isa = PBXGroup;
 			children = (
+				0B85E4C72B9DFB3400133166 /* Info.plist */,
+				0B85E4CB2B9DFE2D00133166 /* Audiowide-Regular.ttf */,
 				0BCB50FA2B9CE3FE00B21E2D /* Presentation */,
 				0BCB50F92B9CE34F00B21E2D /* Model */,
 				0BCB50EE2B9CDBB600B21E2D /* Component */,
@@ -170,6 +180,7 @@
 		0B170A102B8E50EF00F8D0B1 /* LumenMemory Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				0B85E4C62B9DFB1B00133166 /* LumenMemory-Watch-App-Info.plist */,
 				0B170A112B8E50EF00F8D0B1 /* LumenMemoryApp.swift */,
 				0B170A292B8E571E00F8D0B1 /* WatchToiOSConnector.swift */,
 				0B170A132B8E50EF00F8D0B1 /* GameWatchView.swift */,
@@ -202,6 +213,7 @@
 				0B3398832B97CF3500532C6E /* ButtonStyle+GameButton.swift */,
 				0BCB50EF2B9CDCB200B21E2D /* View+BackGround.swift */,
 				0BCB510C2B9CED5C00B21E2D /* View+Shadow.swift */,
+				0B85E4CE2B9E00CA00133166 /* View+Font.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -377,6 +389,7 @@
 			files = (
 				0B170A072B8E50EF00F8D0B1 /* Preview Assets.xcassets in Resources */,
 				0B170A042B8E50EF00F8D0B1 /* Assets.xcassets in Resources */,
+				0B85E4CC2B9DFE2D00133166 /* Audiowide-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +399,7 @@
 			files = (
 				0B170A192B8E50F000F8D0B1 /* Preview Assets.xcassets in Resources */,
 				0B170A162B8E50F000F8D0B1 /* Assets.xcassets in Resources */,
+				0B85E4CD2B9DFE2D00133166 /* Audiowide-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +417,7 @@
 				0B170A372B8E8B3C00F8D0B1 /* HomeKitStorage.swift in Sources */,
 				0BCB50F42B9CE0A200B21E2D /* GameViewModel.swift in Sources */,
 				0BCB510D2B9CED5C00B21E2D /* View+Shadow.swift in Sources */,
+				0B85E4CF2B9E00CA00133166 /* View+Font.swift in Sources */,
 				0BCB50F22B9CE04A00B21E2D /* GameDifficulty.swift in Sources */,
 				0B3398842B97CF3500532C6E /* ButtonStyle+GameButton.swift in Sources */,
 				0BCB51062B9CE7F900B21E2D /* HomeDetailViewModel.swift in Sources */,
@@ -430,6 +445,7 @@
 				0BD308752B9DD4DC005ED4B5 /* Playstate.swift in Sources */,
 				0B3398852B97CF3500532C6E /* ButtonStyle+GameButton.swift in Sources */,
 				0B170A2A2B8E571E00F8D0B1 /* WatchToiOSConnector.swift in Sources */,
+				0B85E4D02B9E00CA00133166 /* View+Font.swift in Sources */,
 				0B170A122B8E50EF00F8D0B1 /* LumenMemoryApp.swift in Sources */,
 				0B170A2D2B8E5E6900F8D0B1 /* GameColor.swift in Sources */,
 				0B51F5652B94C2B10010AFD8 /* String+isNameValid.swift in Sources */,
@@ -573,6 +589,7 @@
 				DEVELOPMENT_TEAM = 93A2ZX8KPJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "LumenMemory-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = LumenMemory;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = zinedineMegnouche.LumenMemory;
@@ -603,6 +620,7 @@
 				DEVELOPMENT_TEAM = 93A2ZX8KPJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "LumenMemory-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = LumenMemory;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = zinedineMegnouche.LumenMemory;
@@ -637,6 +655,7 @@
 				DEVELOPMENT_TEAM = 93A2ZX8KPJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LumenMemory/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LumenMemory;
 				INFOPLIST_KEY_NSHomeKitUsageDescription = "Application a besoin de se connecter à vos appareils de domotiques";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -674,6 +693,7 @@
 				DEVELOPMENT_TEAM = 93A2ZX8KPJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LumenMemory/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LumenMemory;
 				INFOPLIST_KEY_NSHomeKitUsageDescription = "Application a besoin de se connecter à vos appareils de domotiques";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

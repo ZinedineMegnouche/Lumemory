@@ -10,11 +10,10 @@ struct GameView: View {
             HStack{
                 VStack(alignment: .leading,spacing: 10){
                     Text("Round: \(model.round)")
-                        .font(.title)
                     Text("🕹️ Score: \(model.score)")
-                    Text("🏆 Best score: \(model.bestScore)")
-                }.bold()
-                .foregroundStyle(.white)
+                    Text("🏆 Best: \(model.bestScore)")
+                }.title3Font()
+                    .foregroundStyle(.white)
                 Spacer()
                 if !model.isGameStarted || model.isGameFinished {
                     Button{
@@ -25,7 +24,7 @@ struct GameView: View {
                     }
                 }
             }.padding(.vertical, 30)
-            .padding(.top, 60)
+                .padding(.top, 60)
             VStack {
                 HStack {
                     Button {
@@ -40,7 +39,7 @@ struct GameView: View {
                     } label: {
                         Color.green
                     }
-                        .buttonStyle(GameButtonStyle())
+                    .buttonStyle(GameButtonStyle())
                 }
                 HStack{
                     Button {
@@ -49,13 +48,13 @@ struct GameView: View {
                         Rectangle()
                             .fill(Color.blue)
                     }
-                        .buttonStyle(GameButtonStyle())
+                    .buttonStyle(GameButtonStyle())
                     Button {
                         model.didTapColor(color: .yellow)
                     } label: {
                         Color.yellow
                     }
-                        .buttonStyle(GameButtonStyle())
+                    .buttonStyle(GameButtonStyle())
                 }
             }.disabled(!model.isGameStarted || (model.isShowingColor && model.isGameStarted )).overlay {
                 model.isShowingColor || model.isGameFinished ? Color.black.opacity(0.8) : nil
@@ -63,16 +62,23 @@ struct GameView: View {
             .overlay {
                 if model.isShowingColor {
                     Text("Mémorisez les couleurs")
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(.white)
+                        .title2Font()
                 } else if model.isGameFinished {
-                    VStack{
-                        Text("Game Over")
-                            .font(.title)
-                            .bold()
-                            
-                        Text("Score \(model.score)")
+                    VStack(spacing: 20){
+                        Text("Game Over ☠️")
+                            .title2Font()
+                        if model.isBestScore {
+                            VStack(spacing: 20) {
+                                VStack {
+                                    Text("🎉 Nouveau 🎉")
+                                    Text("🎉 Record 🎉")
+                                }
+                                Text("\(model.score)")
+                            }.title2Font()
+                        } else {
+                            Text("Score \(model.score)")
+                                .title3Font()
+                        }
                     }.foregroundStyle(.white)
                 }
             }

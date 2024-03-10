@@ -6,8 +6,7 @@ struct RoundedText: View {
     
     var body: some View {
         Text(text)
-            .bold()
-            .font(.title)
+            .ctaFont()
             .padding()
             .overlay {
                 RoundedRectangle(cornerRadius: 14)

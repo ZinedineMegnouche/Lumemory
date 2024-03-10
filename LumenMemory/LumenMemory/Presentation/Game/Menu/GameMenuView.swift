@@ -9,32 +9,26 @@ struct GameMenuView: View {
         VStack {
             HStack {
                 Text("Partie")
-                    .font(.title)
+                    .title3Font()
                     .foregroundStyle(.white)
                     .bold()
                 Spacer()
-            }.padding(.top, 80)
-            HStack(spacing: 20) {
+            }.padding(.top,80)
+            HStack(spacing: 0) {
                 HStack(spacing: 10) {
                     Image(systemName: "homekit")
-                        .font(.system(size: 30))
-                        .bold()
                         .foregroundStyle(.white)
                     Text(model.home.name)
-                        .bold()
-                        .font(.title3)
                     Spacer()
                 }
                 HStack(spacing: 10) {
                     Image(systemName: "lightbulb.max.fill")
-                        .font(.system(size: 30))
                         .foregroundStyle(.yellow)
                     Text(model.accesory.name)
-                        .bold()
-                        .font(.title3)
                     Spacer()
                 }
-            }.foregroundStyle(.white).padding(.top,20)
+            }.bodyFont()
+            .foregroundStyle(.white).padding(.top,20)
             Spacer()
             VStack {
                 difficultiesButton.padding(.bottom, 100).foregroundStyle(.white)

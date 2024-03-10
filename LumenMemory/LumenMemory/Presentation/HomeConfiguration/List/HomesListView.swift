@@ -17,13 +17,13 @@ struct HomeListView: View {
                 } label: {
                     Image(systemName: "house")
                     Text("Ajouter une maison")
-                }.foregroundStyle(.white)
+                }.smallCtaFont()
+                .foregroundStyle(.white)
             }.padding(.horizontal,30)
                 .padding(.top, 100)
             Text("Selectionner une Maison")
-                .font(.title)
+                .title3Font()
                 .foregroundStyle(.white)
-                .bold()
                 .padding()
             ScrollView {
                 VStack {
