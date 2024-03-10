@@ -9,11 +9,11 @@ struct GameMenuView: View {
         VStack {
             HStack {
                 Text("Partie")
-                    .title2Font()
+                    .title3Font()
                     .foregroundStyle(.white)
                     .bold()
                 Spacer()
-            }.padding(.top,70)
+            }.padding(.top,80)
             HStack(spacing: 0) {
                 HStack(spacing: 10) {
                     Image(systemName: "homekit")

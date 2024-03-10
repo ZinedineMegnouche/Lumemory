@@ -23,7 +23,7 @@ struct Title2Font: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         content
-            .font(.custom("Audiowide-Regular", size: 24))
+            .font(.custom("Audiowide-Regular", size: 40))
             .foregroundStyle(.white)
             .bold()
     }
@@ -33,6 +33,24 @@ extension View {
     
     func title2Font() -> some View {
         self.modifier(Title2Font())
+    }
+}
+
+struct Title3Font: ViewModifier {
+    
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("Audiowide-Regular", size: 24))
+            .foregroundStyle(.white)
+            .bold()
+    }
+}
+
+extension View {
+    
+    func title3Font() -> some View {
+        self.modifier(Title3Font())
     }
 }
 
@@ -90,7 +108,7 @@ struct CellFont: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         content
-            .font(.custom("Audiowide-Regular", size: 14))
+            .font(.system(size: 18))
     }
 }
 

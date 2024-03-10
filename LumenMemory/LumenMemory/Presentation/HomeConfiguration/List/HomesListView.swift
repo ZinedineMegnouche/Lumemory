@@ -22,7 +22,7 @@ struct HomeListView: View {
             }.padding(.horizontal,30)
                 .padding(.top, 100)
             Text("Selectionner une Maison")
-                .title2Font()
+                .title3Font()
                 .foregroundStyle(.white)
                 .padding()
             ScrollView {

@@ -15,6 +15,7 @@ class GameViewModel: ObservableObject {
     @Published var showedColors: [GameColor] = []
     @Published var isGameStarted = false
     @Published var isGameFinished = false
+    @Published var isBestScore = false
     
     var score: Int {
         return (round-1)*10*gameDifficulty.rawValue
@@ -83,6 +84,7 @@ class GameViewModel: ObservableObject {
             self.indexColor = 0
             let bestScore = UserDefaults.standard.integer(forKey: "Best\(self.gameDifficulty.rawValue)")
             if self.score > bestScore {
+                self.isBestScore = true
                 UserDefaults.standard.set(self.score, forKey: "Best\(self.gameDifficulty.rawValue)")
             }
             self.watchConnector.sendPlaystate(playState: .gameOver)
@@ -141,6 +143,7 @@ class GameViewModel: ObservableObject {
     
     func startGame() {
         DispatchQueue.main.async {
+            self.isBestScore = false
             self.round = 1
             self.isGameFinished = false
             self.isGameStarted = true

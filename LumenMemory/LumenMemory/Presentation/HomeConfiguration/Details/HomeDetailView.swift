@@ -20,12 +20,12 @@ struct HomeDetailView: View {
             }.padding(.horizontal,30)
                 .padding(.top, 100)
             Text("Selectionner une ampoule")
-            title2Font()
+                .title3Font()
                 .foregroundStyle(.white)
                 .bold()
                 .padding()
             Text("Lumières")
-            title2Font()
+                .title3Font()
                 .foregroundStyle(.white)
                 .bold()
                 .padding()
@@ -43,8 +43,8 @@ struct HomeDetailView: View {
                 }
                 if model.newAccessories.count > 0 {
                     VStack(alignment: .leading) {
-                        Text("Nouveau Accesoire")
-                        title2Font()
+                        Text("Nouveaux Accesoires")
+                            .title3Font()
                             .foregroundStyle(.white)
                             .bold()
                             .padding()
