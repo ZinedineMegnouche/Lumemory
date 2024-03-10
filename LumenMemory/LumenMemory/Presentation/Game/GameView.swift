@@ -75,9 +75,6 @@ struct GameView: View {
                                 }
                                 Text("\(model.score)")
                             }.title2Font()
-                        } else {
-                            Text("Score \(model.score)")
-                                .title3Font()
                         }
                     }.foregroundStyle(.white)
                 }

@@ -9,7 +9,7 @@ struct GameMenuView: View {
         VStack {
             HStack {
                 Text("Partie")
-                    .title3Font()
+                    .title2Font()
                     .foregroundStyle(.white)
                     .bold()
                 Spacer()

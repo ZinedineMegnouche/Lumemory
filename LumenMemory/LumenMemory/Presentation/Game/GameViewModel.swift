@@ -78,12 +78,28 @@ class GameViewModel: ObservableObject {
         }
     }
     
+    func bestScoreAnimation() {
+
+        let colors: [GameColor] = GameColor.allCases
+        
+        for (index, color) in colors.enumerated() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 1.0) {
+                self.changeColor(color: color)
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.turnOnLight()
+        }
+    }
+    
     func endGame() {
         DispatchQueue.main.async {
             self.turnOnLight()
             self.indexColor = 0
             let bestScore = UserDefaults.standard.integer(forKey: "Best\(self.gameDifficulty.rawValue)")
             if self.score > bestScore {
+                self.bestScoreAnimation()
                 self.isBestScore = true
                 UserDefaults.standard.set(self.score, forKey: "Best\(self.gameDifficulty.rawValue)")
             }
