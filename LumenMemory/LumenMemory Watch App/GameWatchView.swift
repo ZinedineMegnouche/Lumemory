@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 struct GameWatchView: View {
-    
+
     @ObservedObject var model: GameWatchViewModel
     var body: some View {
 
@@ -20,7 +20,7 @@ struct GameWatchView: View {
                         Color.green
                     }.buttonStyle(GameButtonStyle())
                 }
-                HStack{
+                HStack {
                     Button {
                         model.watchToiOSConnector.sendColor(.blue)
                     } label: {
@@ -45,12 +45,11 @@ struct GameWatchView: View {
                             .bold()
                             .foregroundStyle(.white)
                         Text("Score: \(model.score)")
-                        Button{
+                        Button {
                             model.watchToiOSConnector.sendRestart()
                         } label: {
                             Text("Rejouer")
                         }
-                        
                     }
                 }
             }

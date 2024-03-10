@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct GenericCellView: View {
-    
+
     var cellType: CellType
     var name: String
-    
+
     var body: some View {
-        
+
         HStack {
             cellImage
             Text(name)
@@ -14,7 +14,7 @@ struct GenericCellView: View {
         }
         .cellFont()
         .padding(.vertical, 10)
-        .padding(.horizontal,16)
+        .padding(.horizontal, 16)
         .foregroundStyle(.black)
         .frame(height: 60)
         .background {
@@ -23,13 +23,12 @@ struct GenericCellView: View {
                 .shadowLarge()
         }
     }
-    
+
     @ViewBuilder
     var cellImage: some View {
-        
         if cellType == .lightbulb {
             Image(systemName: "lightbulb")
-        } else if cellType == .home{
+        } else if cellType == .home {
             Image(systemName: "house")
         }
     }
@@ -37,14 +36,14 @@ struct GenericCellView: View {
 
 #Preview {
     Group {
-        GenericCellView(cellType: .home,name: "House Name")
+        GenericCellView(cellType: .home, name: "House Name")
         GenericCellView(cellType: .lightbulb, name: "Accessory Name")
         GenericCellView(cellType: .unknown, name: "Accessory Name")
     }
 }
 
 enum CellType {
-    
+
     case home
     case lightbulb
     case unknown

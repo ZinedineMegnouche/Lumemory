@@ -2,13 +2,13 @@ import SwiftUI
 import HomeKit
 
 struct GameView: View {
-    
+
     @ObservedObject var model: GameViewModel
-    
+
     var body: some View {
-        VStack{
-            HStack{
-                VStack(alignment: .leading,spacing: 10){
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Round: \(model.round)")
                     Text("🕹️ Score: \(model.score)")
                     Text("🏆 Best: \(model.bestScore)")
@@ -16,7 +16,7 @@ struct GameView: View {
                     .foregroundStyle(.white)
                 Spacer()
                 if !model.isGameStarted || model.isGameFinished {
-                    Button{
+                    Button {
                         model.startGame()
                     }label: {
                         RoundedText(text: "Start")
@@ -41,7 +41,7 @@ struct GameView: View {
                     }
                     .buttonStyle(GameButtonStyle())
                 }
-                HStack{
+                HStack {
                     Button {
                         model.didTapColor(color: .blue)
                     } label: {
@@ -64,7 +64,7 @@ struct GameView: View {
                     Text("Mémorisez les couleurs")
                         .title2Font()
                 } else if model.isGameFinished {
-                    VStack(spacing: 20){
+                    VStack(spacing: 20) {
                         Text("Game Over ☠️")
                             .title2Font()
                         if model.isBestScore {
@@ -91,4 +91,3 @@ struct GameView: View {
                                   difficulty: .easy,
                                   homeKitStorage: HomeKitStorage()))
 }
-

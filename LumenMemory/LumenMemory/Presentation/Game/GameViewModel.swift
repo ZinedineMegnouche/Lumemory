@@ -4,9 +4,8 @@ import HomeKit
 import Combine
 
 class GameViewModel: ObservableObject {
-    
+
     @ObservedObject var watchConnector = WatchConnector()
-    
     @Published var home: HomeListItem
     @Published var accesory: HMAccessory
     @Published var gameDifficulty: GameDifficulty
@@ -16,36 +15,36 @@ class GameViewModel: ObservableObject {
     @Published var isGameStarted = false
     @Published var isGameFinished = false
     @Published var isBestScore = false
-    
+
     var score: Int {
         return (round-1)*10*gameDifficulty.rawValue
     }
-    
+
     var bestScore: Int {
         return UserDefaults.standard.integer(forKey: "Best\(self.gameDifficulty.rawValue)")
     }
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     var indexColor: Int = 0
     private let homeKitStorage: HomeKitStorage
-    
-    init(home: HomeListItem, accesory: HMAccessory,difficulty: GameDifficulty, homeKitStorage: HomeKitStorage) {
+
+    init(home: HomeListItem, accesory: HMAccessory, difficulty: GameDifficulty, homeKitStorage: HomeKitStorage) {
         self.home = home
         self.accesory = accesory
         self.gameDifficulty = difficulty
         self.homeKitStorage = homeKitStorage
         bind()
     }
-    
-    func bind(){
+
+    func bind() {
         watchConnector.$receivedColor
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { color in
                 self.didTapColor(color: color)
             }.store(in: &cancellables)
-        
+
         watchConnector.$restart
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
@@ -53,11 +52,11 @@ class GameViewModel: ObservableObject {
                 self.startGame()
             }.store(in: &cancellables)
     }
-    
+
     func didTapColor(color: GameColor) {
         checkColor(color: color)
     }
-    
+
     func checkColor(color: GameColor) {
         if indexColor < showedColors.count {
             if self.showedColors[safe: indexColor] == color {
@@ -77,22 +76,22 @@ class GameViewModel: ObservableObject {
             continueGame()
         }
     }
-    
+
     func bestScoreAnimation() {
 
         let colors: [GameColor] = GameColor.allCases
-        
+
         for (index, color) in colors.enumerated() {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 1.0) {
                 self.changeColor(color: color)
             }
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             self.turnOnLight()
         }
     }
-    
+
     func endGame() {
         DispatchQueue.main.async {
             self.turnOnLight()
@@ -109,7 +108,7 @@ class GameViewModel: ObservableObject {
             self.isGameFinished = true
         }
     }
-    
+
     func resetGame() {
         DispatchQueue.main.async {
             self.turnOnLight()
@@ -118,31 +117,32 @@ class GameViewModel: ObservableObject {
             self.isGameStarted = false
         }
     }
-    
+
     func initRound() {
-        for i in 0..<self.round*self.gameDifficulty.rawValue {
-            if self.showedColors[safe: i] == nil {
+        for index in 0..<self.round*self.gameDifficulty.rawValue {
+            // swiftlint:disable:next for_where
+            if self.showedColors[safe: index] == nil {
                 self.showedColors.append(GameColor.random())
             }
         }
     }
-    
+
     func endRound() {
         self.isShowingColor = false
         self.turnOnLight()
         self.watchConnector.sendPlaystate(playState: .canPlay)
     }
-    
+
     func beginRound(showingColors: [GameColor]) {
         guard !showingColors.isEmpty else { return }
         var gameColor = showingColors
-        if let currentColor = gameColor[safe: 0]{
+        if let currentColor = gameColor[safe: 0] {
             self.decreaseBrightness()
             self.changeColor(color: currentColor)
             gameColor.removeFirst()
         }
         self.watchConnector.sendPlaystate(playState: .cannotPlay)
-        DispatchQueue.main.asyncAfter(deadline: .now()+(gameColor.isEmpty ? 5 : 5)){
+        DispatchQueue.main.asyncAfter(deadline: .now()+(gameColor.isEmpty ? 5 : 5)) {
             if !gameColor.isEmpty {
                 self.beginRound(showingColors: gameColor)
             } else {
@@ -150,13 +150,13 @@ class GameViewModel: ObservableObject {
             }
         }
     }
-    
+
     func continueGame() {
         isShowingColor = true
         initRound()
         beginRound(showingColors: self.showedColors)
     }
-    
+
     func startGame() {
         DispatchQueue.main.async {
             self.isBestScore = false
@@ -174,20 +174,20 @@ class GameViewModel: ObservableObject {
 // MARK: HOMEKit
 
 extension GameViewModel {
-    
+
     func decreaseBrightness() {
         let totalTime: TimeInterval = 5
         let interval: TimeInterval = 0.1
         let steps = Int(totalTime / interval)
         let brightnessStep = 100 / steps
-        
-        for i in 0..<steps {
-            DispatchQueue.main.asyncAfter(deadline: .now() + (interval * TimeInterval(i))) {
-                self.adjustBrightness(100 - (brightnessStep * (i + 1)))
+
+        for step in 0..<steps {
+            DispatchQueue.main.asyncAfter(deadline: .now() + (interval * TimeInterval(step))) {
+                self.adjustBrightness(100 - (brightnessStep * (step + 1)))
             }
         }
     }
-    
+
     func adjustBrightness(_ brightness: Int) {
         homeKitStorage.homes
             .first { $0.uniqueIdentifier == home.id }?
@@ -203,16 +203,16 @@ extension GameViewModel {
                 }
             }
     }
-    
-    func turnOnLight(){
+
+    func turnOnLight() {
         homeKitStorage.homes
-            .first{$0.uniqueIdentifier == home.id}?
+            .first { $0.uniqueIdentifier == home.id }?
             .accessories
-            .first{$0.uniqueIdentifier == accesory.uniqueIdentifier}?
+            .first { $0.uniqueIdentifier == accesory.uniqueIdentifier }?
             .services
-            .first{$0.serviceType == HMServiceTypeLightbulb}?
+            .first { $0.serviceType == HMServiceTypeLightbulb }?
             .characteristics
-            .first{$0.characteristicType == HMCharacteristicTypePowerState}?
+            .first { $0.characteristicType == HMCharacteristicTypePowerState }?
             .writeValue(true) { error in
                 if let error = error {
                     print("Error writing value: \(error)")
@@ -221,64 +221,64 @@ extension GameViewModel {
         saturationMin()
         brightnessMax()
     }
-    
-    func saturationMin(){
+
+    func saturationMin() {
         homeKitStorage.homes
-            .first{$0.uniqueIdentifier == home.id}?
+            .first { $0.uniqueIdentifier == home.id }?
             .accessories
-            .first{$0.uniqueIdentifier == accesory.uniqueIdentifier}?
+            .first { $0.uniqueIdentifier == accesory.uniqueIdentifier }?
             .services
-            .first{$0.serviceType == HMServiceTypeLightbulb}?
+            .first { $0.serviceType == HMServiceTypeLightbulb }?
             .characteristics
-            .first{$0.characteristicType == HMCharacteristicTypeSaturation}?
+            .first { $0.characteristicType == HMCharacteristicTypeSaturation }?
             .writeValue(0) { error in
                 if let error = error {
                     print("Error writing value: \(error)")
                 }
             }
     }
-    func saturationMax(){
+    func saturationMax() {
         homeKitStorage.homes
-            .first{$0.uniqueIdentifier == home.id}?
+            .first { $0.uniqueIdentifier == home.id }?
             .accessories
-            .first{$0.uniqueIdentifier == accesory.uniqueIdentifier}?
+            .first { $0.uniqueIdentifier == accesory.uniqueIdentifier }?
             .services
-            .first{$0.serviceType == HMServiceTypeLightbulb}?
+            .first { $0.serviceType == HMServiceTypeLightbulb }?
             .characteristics
-            .first{$0.characteristicType == HMCharacteristicTypeSaturation}?
+            .first { $0.characteristicType == HMCharacteristicTypeSaturation }?
             .writeValue(100) { error in
                 if let error = error {
                     print("Error writing value: \(error)")
                 }
             }
     }
-    
-    func brightnessMax(){
+
+    func brightnessMax() {
         homeKitStorage.homes
-            .first{$0.uniqueIdentifier == home.id}?
+            .first { $0.uniqueIdentifier == home.id }?
             .accessories
-            .first{$0.uniqueIdentifier == accesory.uniqueIdentifier}?
+            .first { $0.uniqueIdentifier == accesory.uniqueIdentifier }?
             .services
-            .first{$0.serviceType == HMServiceTypeLightbulb}?
+            .first { $0.serviceType == HMServiceTypeLightbulb }?
             .characteristics
-            .first{$0.characteristicType == HMCharacteristicTypeBrightness}?
+            .first { $0.characteristicType == HMCharacteristicTypeBrightness }?
             .writeValue(100) { error in
                 if let error = error {
                     print("Error writing value: \(error)")
                 }
             }
     }
-    
-    func changeColor(color: GameColor){
+
+    func changeColor(color: GameColor) {
         saturationMax()
         homeKitStorage.homes
-            .first{$0.uniqueIdentifier == home.id}?
+            .first { $0.uniqueIdentifier == home.id }?
             .accessories
-            .first{$0.uniqueIdentifier == accesory.uniqueIdentifier}?
+            .first { $0.uniqueIdentifier == accesory.uniqueIdentifier }?
             .services
-            .first{$0.serviceType == HMServiceTypeLightbulb}?
+            .first { $0.serviceType == HMServiceTypeLightbulb }?
             .characteristics
-            .first{$0.characteristicType == HMCharacteristicTypeHue}?
+            .first { $0.characteristicType == HMCharacteristicTypeHue }?
             .writeValue(color.getHueColor()) { error in
                 if let error = error {
                     print("Error writing value: \(error)")

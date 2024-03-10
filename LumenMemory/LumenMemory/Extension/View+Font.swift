@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TitleFont: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -12,14 +12,14 @@ struct TitleFont: ViewModifier {
 }
 
 extension View {
-    
+
     func titleFont() -> some View {
         self.modifier(TitleFont())
     }
 }
 
 struct Title2Font: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -30,14 +30,14 @@ struct Title2Font: ViewModifier {
 }
 
 extension View {
-    
+
     func title2Font() -> some View {
         self.modifier(Title2Font())
     }
 }
 
 struct Title3Font: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -48,14 +48,14 @@ struct Title3Font: ViewModifier {
 }
 
 extension View {
-    
+
     func title3Font() -> some View {
         self.modifier(Title3Font())
     }
 }
 
 struct CTAFont: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -65,14 +65,14 @@ struct CTAFont: ViewModifier {
 }
 
 extension View {
-    
+
     func ctaFont() -> some View {
         self.modifier(CTAFont())
     }
 }
 
 struct SmallCTAFont: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -81,14 +81,14 @@ struct SmallCTAFont: ViewModifier {
 }
 
 extension View {
-    
+
     func smallCtaFont() -> some View {
         self.modifier(SmallCTAFont())
     }
 }
 
 struct BodyFont: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -97,14 +97,14 @@ struct BodyFont: ViewModifier {
 }
 
 extension View {
-    
+
     func bodyFont() -> some View {
         self.modifier(BodyFont())
     }
 }
 
 struct CellFont: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content
@@ -113,7 +113,7 @@ struct CellFont: ViewModifier {
 }
 
 extension View {
-    
+
     func cellFont() -> some View {
         self.modifier(CellFont())
     }
