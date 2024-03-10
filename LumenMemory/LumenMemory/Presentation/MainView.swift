@@ -5,14 +5,12 @@ struct MainView: View {
         VStack {
             VStack {
                 Text("Lumen")
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                .bold()
+                    .titleFont()
+                .shadowTitle(color: .cyan)
                 
                 Text("Memory")
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                .bold()
+                .titleFont()
+                .shadowTitle(color: .yellow)
                 
             }
             .padding(.top, 200)
@@ -22,6 +20,7 @@ struct MainView: View {
                     HomeListView(model: HomeListViewModel(HomeKitStorage()))
                 } label: {
                     RoundedText(text: "JOUER !")
+                        .shadowTitle(color: .green)
                         .foregroundColor(.white)
                 }
                 Spacer()

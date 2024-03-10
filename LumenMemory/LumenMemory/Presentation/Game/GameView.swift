@@ -10,10 +10,9 @@ struct GameView: View {
             HStack{
                 VStack(alignment: .leading,spacing: 10){
                     Text("Round: \(model.round)")
-                        .font(.title)
                     Text("🕹️ Score: \(model.score)")
-                    Text("🏆 Best score: \(model.bestScore)")
-                }.bold()
+                    Text("🏆 Best: \(model.bestScore)")
+                }.title2Font()
                 .foregroundStyle(.white)
                 Spacer()
                 if !model.isGameStarted || model.isGameFinished {

@@ -12,6 +12,7 @@ struct GenericCellView: View {
             Text(name)
             Spacer()
         }
+        .cellFont()
         .padding(.vertical, 10)
         .padding(.horizontal,16)
         .foregroundStyle(.black)
@@ -36,8 +37,8 @@ struct GenericCellView: View {
 
 #Preview {
     Group {
-        GenericCellView(cellType: .lightbulb,name: "House Name")
-        GenericCellView(cellType: .home, name: "Accessory Name")
+        GenericCellView(cellType: .home,name: "House Name")
+        GenericCellView(cellType: .lightbulb, name: "Accessory Name")
         GenericCellView(cellType: .unknown, name: "Accessory Name")
     }
 }
