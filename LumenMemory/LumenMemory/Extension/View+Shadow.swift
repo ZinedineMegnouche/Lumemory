@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ShadowLarge: ViewModifier {
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content.shadow(color: .black,
@@ -10,16 +10,16 @@ struct ShadowLarge: ViewModifier {
 }
 
 extension View {
-    
+
     func shadowLarge() -> some View {
         self.modifier(ShadowLarge())
     }
 }
 
 struct ShadowTitle: ViewModifier {
-    
+
     var color: Color = .black
-    
+
     @ViewBuilder
     func body(content: Content) -> some View {
         content.shadow(color: color,
@@ -28,7 +28,7 @@ struct ShadowTitle: ViewModifier {
 }
 
 extension View {
-    
+
     func shadowTitle(color: Color) -> some View {
         self.modifier(ShadowTitle(color: color))
     }

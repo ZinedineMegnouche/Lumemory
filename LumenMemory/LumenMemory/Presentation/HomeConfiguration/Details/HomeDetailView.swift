@@ -2,22 +2,22 @@ import SwiftUI
 import HomeKit
 
 struct HomeDetailView: View {
-    
+
     @ObservedObject var model: HomeDetailViewModel
-    
+
     var body: some View {
-        VStack(alignment: .leading){
-            HStack{
+        VStack(alignment: .leading) {
+            HStack {
                 Spacer()
                 Button(action: {
                     model.addLightAccessory()
                 }, label: {
-                    HStack{
+                    HStack {
                         Image(systemName: "arrow.circlepath")
                         Text("Rechercher des accessoires")
                     }.smallCtaFont()
                 }).foregroundStyle(.white)
-            }.padding(.horizontal,30)
+            }.padding(.horizontal, 30)
                 .padding(.top, 100)
             Text("Selectionner une ampoule")
                 .title3Font()
@@ -29,7 +29,7 @@ struct HomeDetailView: View {
                 .foregroundStyle(.white)
                 .bold()
                 .padding()
-            ScrollView{
+            ScrollView {
                 VStack {
                     ForEach(model.lightAccessories, id: \.uniqueIdentifier) { accessory in
                         NavigationLink {
@@ -50,7 +50,7 @@ struct HomeDetailView: View {
                             .padding()
                         VStack {
                             ForEach(model.newAccessories, id: \.uniqueIdentifier) { accessory in
-                                Button{
+                                Button {
                                     model.addAccesoryToHome(accessory: accessory)
                                 } label: {
                                     GenericCellView(cellType: .unknown, name: accessory.name)
@@ -62,12 +62,11 @@ struct HomeDetailView: View {
                     }
                 }
             }
-            
         }.lumenMemoryBG()
             .alert(isPresented: $model.isPresentingAlert) {
-                Alert(title: Text(""), 
+                Alert(title: Text(""),
                       message: Text(model.textAlert),
-                      dismissButton: .default(Text("OK")){
+                      dismissButton: .default(Text("OK")) {
                     model.isPresentingAlert = false
                 })
             }
@@ -75,5 +74,5 @@ struct HomeDetailView: View {
 }
 
 #Preview {
-    HomeDetailView(model: HomeDetailViewModel(home: HomeListItem(id: UUID(), name: "Test"),HomeKitStorage()))
+    HomeDetailView(model: HomeDetailViewModel(home: HomeListItem(id: UUID(), name: "Test"), HomeKitStorage()))
 }

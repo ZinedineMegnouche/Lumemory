@@ -2,22 +2,20 @@ import Foundation
 import SwiftUI
 
 enum GameColor: Int, CaseIterable {
-    
+
     case red = 0
     case green = 1
     case blue = 2
     case yellow = 3
-    
+
     static func random() -> GameColor {
         return GameColor(rawValue: Int.random(in: 0...GameColor.allCases.count-1))!
     }
 }
 
-extension GameColor{
-    
+extension GameColor {
     func uiColor() -> Color {
-        
-        switch self{
+        switch self {
         case .red:
                 .red
         case .green:
@@ -28,9 +26,9 @@ extension GameColor{
                 .yellow
         }
     }
-    
+
     func getHueColor() -> CGFloat {
-        switch self{
+        switch self {
         case .red:
             return 0
         case .green:
@@ -44,7 +42,7 @@ extension GameColor{
 }
 
 enum GameColorMapper {
-    
+
     static func map(color: Int) -> GameColor {
         switch color {
         case 0:

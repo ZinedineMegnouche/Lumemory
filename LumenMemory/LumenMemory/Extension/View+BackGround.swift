@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct LumenMemoryBg: ViewModifier {
-    
+
     func body(content: Content) -> some View {
         content.background(Image("bg")
             .resizable()
@@ -12,7 +12,7 @@ struct LumenMemoryBg: ViewModifier {
 }
 
 extension View {
-    
+
     func lumenMemoryBG() -> some View {
         modifier(LumenMemoryBg())
     }

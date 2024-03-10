@@ -5,4 +5,3 @@ enum GameDifficulty: Int {
     case medium = 2
     case hard = 3
 }
-

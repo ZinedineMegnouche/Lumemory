@@ -7,14 +7,12 @@ struct MainView: View {
                 Text("Lumen")
                     .titleFont()
                 .shadowTitle(color: .cyan)
-                
                 Text("Memory")
                 .titleFont()
                 .shadowTitle(color: .yellow)
-                
             }
             .padding(.top, 200)
-            VStack{
+            VStack {
                 Spacer()
                 NavigationLink {
                     HomeListView(model: HomeListViewModel(HomeKitStorage()))
@@ -28,11 +26,10 @@ struct MainView: View {
             Spacer()
         }.lumenMemoryBG()
     }
-    
 }
 
 #Preview {
-    NavigationStack{
+    NavigationStack {
         MainView()
     }
 }

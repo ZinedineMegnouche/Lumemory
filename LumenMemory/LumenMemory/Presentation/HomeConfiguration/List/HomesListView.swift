@@ -2,16 +2,16 @@ import SwiftUI
 import HomeKit
 
 struct HomeListView: View {
-    
+
     @ObservedObject var model: HomeListViewModel
     @State private var homeName: String = ""
-    @State private var selectedHome: UUID? = nil
-    
+    @State private var selectedHome: UUID?
+
     var body: some View {
-        VStack(alignment: .leading){
-            HStack{
+        VStack(alignment: .leading) {
+            HStack {
                 Spacer()
-                Button{
+                Button {
                     print("tap add home")
                     model.handleAddhome()
                 } label: {
@@ -19,7 +19,7 @@ struct HomeListView: View {
                     Text("Ajouter une maison")
                 }.smallCtaFont()
                 .foregroundStyle(.white)
-            }.padding(.horizontal,30)
+            }.padding(.horizontal, 30)
                 .padding(.top, 100)
             Text("Selectionner une Maison")
                 .title3Font()
@@ -36,7 +36,6 @@ struct HomeListView: View {
                                     .padding(.horizontal)
                                     .padding(.vertical, 10)
                             }
-                            
                         }
                 }
             }

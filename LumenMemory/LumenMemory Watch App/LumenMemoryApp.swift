@@ -1,5 +1,5 @@
 import SwiftUI
-
+// swiftlint:disable type_name
 @main
 struct LumenMemory_Watch_AppApp: App {
     var body: some Scene {
@@ -8,3 +8,4 @@ struct LumenMemory_Watch_AppApp: App {
         }
     }
 }
+// swiftlint:enable type_name

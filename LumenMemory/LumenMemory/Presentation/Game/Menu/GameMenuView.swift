@@ -2,18 +2,18 @@ import SwiftUI
 import HomeKit
 
 struct GameMenuView: View {
-    
+
     @ObservedObject var model: GameMenuViewModel
-    
+
     var body: some View {
         VStack {
             HStack {
                 Text("Partie")
-                    .title3Font()
+                    .title2Font()
                     .foregroundStyle(.white)
                     .bold()
                 Spacer()
-            }.padding(.top,80)
+            }.padding(.top, 80)
             HStack(spacing: 0) {
                 HStack(spacing: 10) {
                     Image(systemName: "homekit")
@@ -28,7 +28,7 @@ struct GameMenuView: View {
                     Spacer()
                 }
             }.bodyFont()
-            .foregroundStyle(.white).padding(.top,20)
+            .foregroundStyle(.white).padding(.top, 20)
             Spacer()
             VStack {
                 difficultiesButton.padding(.bottom, 100).foregroundStyle(.white)
@@ -38,7 +38,7 @@ struct GameMenuView: View {
         .padding(20)
         .lumenMemoryBG()
     }
-    
+
     @ViewBuilder
     var difficultiesButton: some View {
         NavigationLink {
@@ -72,6 +72,3 @@ struct GameMenuView: View {
     GameMenuView(model: GameMenuViewModel(home: HomeListItem(id: UUID(), name: "home"),
                                           accesory: HMAccessory()))
 }
-
-
-

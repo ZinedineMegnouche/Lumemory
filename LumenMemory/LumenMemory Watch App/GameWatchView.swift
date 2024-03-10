@@ -2,11 +2,10 @@ import SwiftUI
 import Combine
 
 struct GameWatchView: View {
-    
+
     @ObservedObject var model: GameWatchViewModel
-    @State var tabIndex: Int = 0
     var body: some View {
-        TabView(selection: $tabIndex) {
+
             VStack {
                 HStack {
                     Button {
@@ -21,7 +20,7 @@ struct GameWatchView: View {
                         Color.green
                     }.buttonStyle(GameButtonStyle())
                 }
-                HStack{
+                HStack {
                     Button {
                         model.watchToiOSConnector.sendColor(.blue)
                     } label: {
@@ -40,27 +39,21 @@ struct GameWatchView: View {
                 !model.playable ? Color.black.opacity(0.8) : nil
             }.overlay {
                 if model.playState == .gameOver {
-                    VStack{
+                    VStack {
                         Text("Game Over")
                             .font(.title)
                             .bold()
                             .foregroundStyle(.white)
                         Text("Score: \(model.score)")
-                        Text("Best Score: \(model.bestScore)")
+                        Button {
+                            model.watchToiOSConnector.sendRestart()
+                        } label: {
+                            Text("Rejouer")
+                        }
                     }
                 }
             }
             .ignoresSafeArea()
-            if model.playState == .gameOver {
-                Button{
-                    tabIndex = 0
-                    model.watchToiOSConnector.sendRestart()
-                }label: {
-                    Text("Rejouer")
-                }
-            }
-        }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
     }
 }
 

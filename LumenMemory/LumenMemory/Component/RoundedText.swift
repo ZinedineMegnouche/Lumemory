@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct RoundedText: View {
-    
+
     var text: String
-    
+
     var body: some View {
         Text(text)
             .ctaFont()
