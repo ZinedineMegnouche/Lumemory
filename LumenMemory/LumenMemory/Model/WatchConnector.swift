@@ -4,6 +4,7 @@ import WatchConnectivity
 class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     @Published var receivedColor: GameColor?
+    @Published var restart: Bool?
     
     var session: WCSession
     
@@ -32,12 +33,32 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
             if let color = message["color"] as? Int {
                 self.receivedColor = GameColorMapper.map(color: color)
             }
+            if let restart = message["restart"] as? Bool {
+                self.restart = restart
+            }
+            
         }
     }
     
-    func sendIsPlaying(canPlay: Bool){
+    func sendPlaystate(playState: PlayState){
         if session.isReachable {
-            session.sendMessage(["canPlay": canPlay], replyHandler: nil, errorHandler: nil)
+            session.sendMessage(["playState": playState.rawValue], replyHandler: nil, errorHandler: nil)
+        } else {
+            print("not reachable")
+        }
+    }
+    
+    func sendScore(_ score: Int){
+        if session.isReachable {
+            session.sendMessage(["score": score], replyHandler: nil, errorHandler: nil)
+        } else {
+            print("not reachable")
+        }
+    }
+    
+    func sendBestScore(_ score: Int){
+        if session.isReachable {
+            session.sendMessage(["best": score], replyHandler: nil, errorHandler: nil)
         } else {
             print("not reachable")
         }

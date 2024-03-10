@@ -41,6 +41,8 @@
 		0BCB510B2B9CE99D00B21E2D /* GenericCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB510A2B9CE99D00B21E2D /* GenericCellView.swift */; };
 		0BCB510D2B9CED5C00B21E2D /* View+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB510C2B9CED5C00B21E2D /* View+Shadow.swift */; };
 		0BD3086D2B9DC65D005ED4B5 /* GameWatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD3086C2B9DC65D005ED4B5 /* GameWatchViewModel.swift */; };
+		0BD308742B9DD4DC005ED4B5 /* Playstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD308732B9DD4DC005ED4B5 /* Playstate.swift */; };
+		0BD308752B9DD4DC005ED4B5 /* Playstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD308732B9DD4DC005ED4B5 /* Playstate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,7 @@
 		0BCB510A2B9CE99D00B21E2D /* GenericCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCellView.swift; sourceTree = "<group>"; };
 		0BCB510C2B9CED5C00B21E2D /* View+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Shadow.swift"; sourceTree = "<group>"; };
 		0BD3086C2B9DC65D005ED4B5 /* GameWatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWatchViewModel.swift; sourceTree = "<group>"; };
+		0BD308732B9DD4DC005ED4B5 /* Playstate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playstate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +232,7 @@
 				0B170A362B8E8B3C00F8D0B1 /* HomeKitStorage.swift */,
 				0B170A272B8E564000F8D0B1 /* WatchConnector.swift */,
 				0BCB50F12B9CE04A00B21E2D /* GameDifficulty.swift */,
+				0BD308732B9DD4DC005ED4B5 /* Playstate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -404,6 +408,7 @@
 				0BCB51062B9CE7F900B21E2D /* HomeDetailViewModel.swift in Sources */,
 				0B170A392B8E8DC300F8D0B1 /* HomesListView.swift in Sources */,
 				0BCB50F82B9CE18A00B21E2D /* GameMenuViewModel.swift in Sources */,
+				0BD308742B9DD4DC005ED4B5 /* Playstate.swift in Sources */,
 				0B51F5692B94E1D30010AFD8 /* GameView.swift in Sources */,
 				0B51F5B62B97A5890010AFD8 /* Collection+Safe.swift in Sources */,
 				0B170A002B8E50EC00F8D0B1 /* LumenMemoryApp.swift in Sources */,
@@ -422,6 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B170A142B8E50EF00F8D0B1 /* GameWatchView.swift in Sources */,
+				0BD308752B9DD4DC005ED4B5 /* Playstate.swift in Sources */,
 				0B3398852B97CF3500532C6E /* ButtonStyle+GameButton.swift in Sources */,
 				0B170A2A2B8E571E00F8D0B1 /* WatchToiOSConnector.swift in Sources */,
 				0B170A122B8E50EF00F8D0B1 /* LumenMemoryApp.swift in Sources */,

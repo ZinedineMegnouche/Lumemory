@@ -16,6 +16,14 @@ class GameViewModel: ObservableObject {
     @Published var isGameStarted = false
     @Published var isGameFinished = false
     
+    var score: Int {
+        return (round-1)*10*gameDifficulty.rawValue
+    }
+    
+    var bestScore: Int {
+        return UserDefaults.standard.integer(forKey: "Best\(self.gameDifficulty.rawValue)")
+    }
+    
     private var cancellables = Set<AnyCancellable>()
     
     var indexColor: Int = 0
@@ -35,6 +43,13 @@ class GameViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { color in
                 self.didTapColor(color: color)
+            }.store(in: &cancellables)
+        
+        watchConnector.$restart
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.startGame()
             }.store(in: &cancellables)
     }
     
@@ -66,9 +81,14 @@ class GameViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.turnOnLight()
             self.indexColor = 0
-            self.round = 1
+            let bestScore = UserDefaults.standard.integer(forKey: "Best\(self.gameDifficulty.rawValue)")
+            if self.score > bestScore {
+                UserDefaults.standard.set(self.score, forKey: "Best\(self.gameDifficulty.rawValue)")
+            }
+            self.watchConnector.sendPlaystate(playState: .gameOver)
+            self.watchConnector.sendScore(self.score)
+            self.watchConnector.sendBestScore(self.bestScore)
             self.isGameFinished = true
-            self.watchConnector.sendIsPlaying(canPlay: false)
         }
     }
     
@@ -92,7 +112,7 @@ class GameViewModel: ObservableObject {
     func endRound() {
         self.isShowingColor = false
         self.turnOnLight()
-        self.watchConnector.sendIsPlaying(canPlay: true)
+        self.watchConnector.sendPlaystate(playState: .canPlay)
     }
     
     func beginRound(showingColors: [GameColor]) {
@@ -103,7 +123,7 @@ class GameViewModel: ObservableObject {
             self.changeColor(color: currentColor)
             gameColor.removeFirst()
         }
-        self.watchConnector.sendIsPlaying(canPlay: false)
+        self.watchConnector.sendPlaystate(playState: .cannotPlay)
         DispatchQueue.main.asyncAfter(deadline: .now()+(gameColor.isEmpty ? 5 : 5)){
             if !gameColor.isEmpty {
                 self.beginRound(showingColors: gameColor)
@@ -121,6 +141,7 @@ class GameViewModel: ObservableObject {
     
     func startGame() {
         DispatchQueue.main.async {
+            self.round = 1
             self.isGameFinished = false
             self.isGameStarted = true
             self.showedColors = []
