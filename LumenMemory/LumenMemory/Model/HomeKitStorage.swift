@@ -32,7 +32,6 @@ class HomeKitStorage: NSObject, ObservableObject, HMHomeManagerDelegate {
     func addAccessory(_ accessory: HMAccessory,to homeID: UUID){
         homes.first { home in home.uniqueIdentifier == homeID}?.addAccessory(accessory, completionHandler: { err in
             print(err ?? "")
-            print(accessory)
         })
     }
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HomeView: View {
+struct MainView: View {
     var body: some View {
         VStack {
             VStack {
@@ -19,40 +19,21 @@ struct HomeView: View {
             VStack{
                 Spacer()
                 NavigationLink {
-                    HomesListPage(model: HomesListPageModel(HomeKitStorage()))
+                    HomeListView(model: HomeListViewModel(HomeKitStorage()))
                 } label: {
-                   RoundedText(text: "JOUER !")
+                    RoundedText(text: "JOUER !")
+                        .foregroundColor(.white)
                 }
                 Spacer()
             }.padding()
             Spacer()
-        }.background(Image("bg")
-            .resizable()
-            .scaledToFill())
-        .ignoresSafeArea()
+        }.lumenMemoryBG()
     }
     
 }
 
 #Preview {
     NavigationStack{
-        HomeView()
-    }
-}
-
-struct RoundedText: View {
-    
-    var text: String
-    
-    var body: some View {
-        Text(text)
-            .bold()
-            .font(.title)
-            .padding()
-//            .modifier(CustomTextStyle())
-            .tint(.white).overlay {
-                RoundedRectangle(cornerRadius: 14)
-                    .stroke(lineWidth: 6).tint(.white)
-            }
+        MainView()
     }
 }
