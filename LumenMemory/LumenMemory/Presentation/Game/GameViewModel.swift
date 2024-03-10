@@ -16,6 +16,10 @@ class GameViewModel: ObservableObject {
     @Published var isGameStarted = false
     @Published var isGameFinished = false
     
+    var score: Int {
+        (self.round-1)*10
+    }
+    
     private var cancellables = Set<AnyCancellable>()
     
     var indexColor: Int = 0
@@ -73,9 +77,9 @@ class GameViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.turnOnLight()
             self.indexColor = 0
-            self.round = 1
-            self.isGameFinished = true
             self.watchConnector.sendPlaystate(playState: .gameOver)
+            self.watchConnector.sendScore(self.score)
+            self.isGameFinished = true
         }
     }
     
@@ -128,6 +132,7 @@ class GameViewModel: ObservableObject {
     
     func startGame() {
         DispatchQueue.main.async {
+            self.round = 1
             self.isGameFinished = false
             self.isGameStarted = true
             self.showedColors = []

@@ -4,9 +4,9 @@ import Combine
 struct GameWatchView: View {
     
     @ObservedObject var model: GameWatchViewModel
-    
+    @State var tabIndex: Int = 0
     var body: some View {
-        TabView {
+        TabView(selection: $tabIndex) {
             VStack {
                 HStack {
                     Button {
@@ -38,10 +38,21 @@ struct GameWatchView: View {
             .disabled(!model.playable)
             .overlay {
                 !model.playable ? Color.black.opacity(0.8) : nil
+            }.overlay {
+                if model.playState == .gameOver {
+                    VStack{
+                        Text("Game Over")
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(.white)
+                        Text("Score: \(model.score)")
+                    }
+                }
             }
             .ignoresSafeArea()
             if model.playState == .gameOver {
                 Button{
+                    tabIndex = 0
                     model.watchToiOSConnector.sendRestart()
                 }label: {
                     Text("Rejouer")

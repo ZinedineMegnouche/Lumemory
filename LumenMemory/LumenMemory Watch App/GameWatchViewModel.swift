@@ -5,6 +5,7 @@ import Combine
 class GameWatchViewModel: ObservableObject {
     
     @Published var playState: PlayState?
+    @Published var score: Int = 0
     @ObservedObject var watchToiOSConnector = WatchToiOSConnector()
     
     var playable: Bool {
@@ -16,8 +17,16 @@ class GameWatchViewModel: ObservableObject {
     init() {
         watchToiOSConnector.$playState
             .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
             .sink { playState in
                 self.playState = playState
+            }.store(in: &cancellables)
+        
+        watchToiOSConnector.$score
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { score in
+                self.score = score
             }.store(in: &cancellables)
     }
     

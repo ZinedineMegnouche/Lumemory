@@ -64,10 +64,13 @@ struct GameView: View {
                         .bold()
                         .foregroundStyle(.white)
                 } else if model.isGameFinished {
-                    Text("GAME OVER")
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(.white)
+                    VStack{
+                        Text("Game Over")
+                            .font(.title)
+                            .bold()
+                            
+                        Text("Score \(model.score)")
+                    }.foregroundStyle(.white)
                 }
             }
         }

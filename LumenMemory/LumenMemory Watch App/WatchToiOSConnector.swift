@@ -4,7 +4,7 @@ import WatchConnectivity
 class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     @Published var playState: PlayState?
-    
+    @Published var score: Int?
     var session: WCSession
     
     
@@ -30,6 +30,9 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
         DispatchQueue.main.async {
             if let playState = message["playState"] as? Int {
                 self.playState = PlayStateMapper.map(state: playState)
+            }
+            if let score = message["score"] as? Int {
+                self.score = score
             }
         }
     }

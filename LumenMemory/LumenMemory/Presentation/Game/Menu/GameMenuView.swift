@@ -12,9 +12,8 @@ struct GameMenuView: View {
                     .font(.title)
                     .foregroundStyle(.white)
                     .bold()
-                    .padding(.vertical, 40)
                 Spacer()
-            }
+            }.padding(.top, 80)
             HStack(spacing: 20) {
                 HStack(spacing: 10) {
                     Image(systemName: "homekit")
@@ -35,10 +34,10 @@ struct GameMenuView: View {
                         .font(.title3)
                     Spacer()
                 }
-            }.foregroundStyle(.white)
+            }.foregroundStyle(.white).padding(.top,20)
             Spacer()
             VStack {
-                difficultiesButton.padding(.bottom, 100)
+                difficultiesButton.padding(.bottom, 100).foregroundStyle(.white)
             }
             Spacer()
         }
