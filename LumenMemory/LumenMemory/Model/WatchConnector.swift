@@ -34,5 +34,13 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
             }
         }
     }
+    
+    func sendIsPlaying(canPlay: Bool){
+        if session.isReachable {
+            session.sendMessage(["canPlay": canPlay], replyHandler: nil, errorHandler: nil)
+        } else {
+            print("not reachable")
+        }
+    }
 
 }

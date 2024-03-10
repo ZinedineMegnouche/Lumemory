@@ -5,7 +5,7 @@ struct LumenMemoryApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack{
-                HomeView()
+                MainView()
             }
         }
     }

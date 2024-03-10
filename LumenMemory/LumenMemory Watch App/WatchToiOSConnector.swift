@@ -3,7 +3,10 @@ import WatchConnectivity
 
 class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
     
+    @Published var canPlay: Bool?
+    
     var session: WCSession
+    
     
     init(session: WCSession = .default) {
         self.session = session
@@ -20,6 +23,14 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
             session.sendMessage(["color": gameColor.rawValue], replyHandler: nil, errorHandler: nil)
         } else {
             print("not reachable")
+        }
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        DispatchQueue.main.async {
+            if let canPlay = message["canPlay"] as? Bool {
+                self.canPlay = canPlay
+            }
         }
     }
 }

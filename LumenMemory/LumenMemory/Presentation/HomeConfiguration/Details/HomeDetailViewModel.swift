@@ -1,68 +1,21 @@
+import Foundation
 import SwiftUI
 import HomeKit
 
-struct HomeDetailView: View {
-    
-    @ObservedObject var model: HomeDetailViewModel
-    
-    var body: some View {
-        VStack{
-            HStack{
-                Spacer()
-                Button(action: {
-                    model.addLightAccessory()
-                }, label: {
-                    HStack{
-                        Image(systemName: "arrow.circlepath")
-                        Text("Rechercher des accessoires")
-                    }
-                })
-            }
-            List {
-                Section {
-                    ForEach(model.lightAccessories, id: \.uniqueIdentifier) { accessory in
-                        Text(accessory.name)
-                    }
-                } header: {
-                    Text("Lumières")
-                }
-            }
-            List {
-                Section {
-                    ForEach(model.newAccessories, id: \.uniqueIdentifier) { accessory in
-                        Button{
-                            model.addAccesoryToHome(accessory: accessory)
-                        } label: {
-                            Text(accessory.name)
-                            
-                        }
-                    }
-                } header: {
-                    Text("Nouveau Accesoire")
-                }
-            }
-        }.alert(isPresented: $model.isPresentingAlert) {
-            Alert(title: Text(""), message: Text(model.textAlert), dismissButton: .default(Text("OK")){
-                model.isPresentingAlert = false
-            })
-        }
-    }
-}
-
 class HomeDetailViewModel: NSObject, ObservableObject {
     
-    @Published var home: UUID
+    @Published var home: HomeListItem
     @Published var lightAccessories: [HMAccessory] = []
     @Published var newAccessories: [HMAccessory] = []
     @Published var isPresentingAlert: Bool = false
     @Published var textAlert: String = ""
+    @Published var homeName: String = ""
     
     private var accessoryBrowser: HMAccessoryBrowser!
     
     private let homeKitStorage: HomeKitStorage
     
-    init(home: UUID,_ homeKitStorage: HomeKitStorage) {
-        print("🔥\(home)")
+    init(home: HomeListItem, _ homeKitStorage: HomeKitStorage) {
         self.home = home
         self.homeKitStorage = homeKitStorage
         self.accessoryBrowser = HMAccessoryBrowser()
@@ -74,9 +27,10 @@ class HomeDetailViewModel: NSObject, ObservableObject {
     func fetchData() {
         homeKitStorage.$homes
             .map { homes in
-                homes.first { home in home.uniqueIdentifier == self.home}?.accessories.filter { acc in
+                homes.first { home in home.uniqueIdentifier == self.home.id}?.accessories.filter { acc in
                     let isLightbulb = acc.services.contains { service in
-                        service.serviceType == HMServiceTypeLightbulb && service.characteristics.contains {
+                        service.serviceType == HMServiceTypeLightbulb
+                        && service.characteristics.contains {
                             $0.characteristicType == HMCharacteristicTypeHue
                         }
                     }
@@ -90,6 +44,8 @@ class HomeDetailViewModel: NSObject, ObservableObject {
     }
 }
 
+// MARK: Accessory Search Delegate
+
 extension HomeDetailViewModel: HMAccessoryBrowserDelegate {
     func accessoryBrowser(_ browser: HMAccessoryBrowser, didFindNewAccessory accessory: HMAccessory) {
         newAccessories.append(accessory)
@@ -102,7 +58,7 @@ extension HomeDetailViewModel: HMAccessoryBrowserDelegate {
     }
     
     func addAccesoryToHome(accessory: HMAccessory){
-        homeKitStorage.homes.first{ $0.uniqueIdentifier == home}?.addAccessory(accessory, completionHandler: { err in
+        homeKitStorage.homes.first{ $0.uniqueIdentifier == home.id}?.addAccessory(accessory, completionHandler: { err in
             if let err {
                 self.textAlert = "impossible d'ajouter l'accessoire \(err)"
             } else {
