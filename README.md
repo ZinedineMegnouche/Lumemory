@@ -1,4 +1,4 @@
-# LumenMemory
+# LumenMemory iPhone & Apple Watch
 
 LumenMemory is a mobile application developed as part of my studies. Built with SwiftUI, it focuses on managing communication between an Apple Watch and an iPhone while also integrating HomeKit functionality to control smart home devices.    
 
